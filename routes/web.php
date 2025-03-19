@@ -1,30 +1,38 @@
 <?php
 
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\ReportController;
 use Illuminate\Support\Facades\Route;
-
-
-require __DIR__ . '/app/auth.php';
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\StudentController;
 
 Route::redirect('/', '/dashboard');
+Route::get('/dashboard', DashboardController::class)->middleware('auth')->name('dashboard');
 
-Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware('auth')->name('dashboard');
+Route::name('auth.')->prefix('auth')->middleware('guest')->group(function () {
+    Route::controller(LoginController::class)->group(function () {
+        Route::get('login', 'index')->name('login');
+        Route::post('login', 'doLogin')->name('doLogin');
+    });
 
-Route::name('admin.')->middleware('auth')->group(function () {
-    Route::controller(ProfileController::class)->name('profile.')->prefix('profile')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::put('/', 'update')->name('update');
+    Route::controller(RegisterController::class)->group(function () {
+        Route::post('register', 'doRegister')->name('doRegister');
     });
-    Route::controller(ReportController::class)->name('report.')->prefix('report')->middleware('role:superadmin,admin')->group(function () {
-        Route::get('/', 'index')->name('index');
-    });
+
+    Route::controller(LogoutController::class)->withoutMiddleware('guest')->group(function () {
+        Route::get('logout', 'logout')->name('logout');
+    })->middleware('auth');
+
+    Route::controller(ChangePasswordController::class)->withoutMiddleware('guest')->group(function () {
+        Route::post('change-password', 'doChange')->name('change-password');
+    })->middleware('auth');
 });
 
+require __DIR__ . '/app/profile.php';
+require __DIR__ . '/app/admin/user.php';
 require __DIR__ . '/app/admin/lab.php';
 require __DIR__ . '/app/admin/borrow.php';
-require __DIR__ . '/app/admin/siswa.php';
-require __DIR__ . '/app/admin/guru.php';
-
-
 require __DIR__ . '/app/settings.php';
+
