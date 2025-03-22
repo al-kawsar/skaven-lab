@@ -8,40 +8,136 @@
         </div>
         <div class="login-right">
             <div class="login-right-wrap">
-                <h1>Welcome to Lab Management</h1>
+                <h1 class="mb-4">Welcome to Lab Management</h1>
 
-                <p class="account-subtitle">Belum punya akun? <a href="{{ route('auth.register') }}">Registrasi</a></p>
+                {{-- <p class="account-subtitle">Belum punya akun? <a href="{{ route('auth.register') }}">Registrasi</a></p> --}}
                 <h2>Sign in</h2>
 
-                <form action="{{ route('auth.doLogin') }}" method="POST">
-                    @method('POST')
+                <!-- Server-side validation errors using Toastr -->
+                @if ($errors->any())
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            @foreach ($errors->all() as $error)
+                                toastr.error('{{ $error }}');
+                            @endforeach
+                        });
+                    </script>
+                @endif
+                <form id="login-form" class="pristine" method="POST" action="{{ route('auth.doLogin') }}" novalidate>
                     @csrf
                     <div class="form-group">
-
-
-                        <label>Username <span class="login-danger">*</span></label>
-                        <input required class="form-control" name="username" type="text">
-                        <span class="profile-views"><i class="fas fa-user-circle"></i></span>
+                        <label style="z-index: 20;">Username <span class="login-danger ">*</span></label>
+                        <div class="position-relative">
+                            <span class="position-absolute"
+                                style="left: 10px; top: 50%; transform: translateY(-50%); z-index: 10;">
+                                <i class="fas fa-user-circle"></i>
+                            </span>
+                            <input required class="form-control" autofocus value="{{ old('username') }}" id="username"
+                                name="username" type="text" autocomplete="username" minlength="3" maxlength="255"
+                                style="font-size: 0.75rem; padding-left: 35px;">
+                        </div>
+                        <div class="invalid-feedback username-error"></div>
                     </div>
                     <div class="form-group">
-                        <label>Password <span class="login-danger">*</span></label>
-                        <input required class="form-control pass-input" name="password" type="password">
-                        <span class="profile-views feather-eye-off toggle-password"></span>
+                        <label style="z-index: 20;">Password <span class="login-danger">*</span></label>
+                        <div class="position-relative">
+                            <span class="position-absolute"
+                                style="left: 10px; top: 50%; transform: translateY(-50%); z-index: 10;">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input required class="form-control pass-input" id="password" name="password" type="password"
+                                autocomplete="current-password" minlength="8" maxlength="255"
+                                style="font-size: 0.75rem; padding-left: 35px;">
+                            <div class="position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);">
+                                <span class="feather-eye-off toggle-password" style="cursor: pointer; z-index: 20;"></span>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback password-error"></div>
                     </div>
                     <div class="forgotpass">
                         <div class="remember-me">
                             <label class="custom_check mr-2 mb-0 d-inline-flex remember-me"> Remember me
-                                <input type="checkbox" name="remember" value="true">
+                                <input type="checkbox" name="remember" id="remember" value="true">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                        <button class="btn btn-primary btn-block" id="login-button" type="submit" disabled>Login</button>
                     </div>
+                    <noscript>
+                        <p class="text-center mt-3 text-danger">Please enable JavaScript for the best experience.</p>
+                    </noscript>
                 </form>
-
             </div>
         </div>
     </div>
 @endsection
+
+@push('script')
+    <!-- Add security helper and form validation utility -->
+    <script src="{{ asset('assets/js/security-helper.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize form validator
+            const loginValidator = new FormValidator('login-form', {
+                validateOnKeyup: true,
+                validateOnBlur: true,
+                disableSubmitOnInvalid: true,
+                showToastOnSubmit: true
+            });
+
+            // Add validation rules for username
+            loginValidator.addField('username', [
+                ValidationRules.required,
+                ValidationRules.minLength(3),
+                ValidationRules.maxLength(255)
+            ]);
+
+            // Add validation rules for password
+            loginValidator.addField('password', [
+                ValidationRules.required,
+                ValidationRules.minLength(8),
+                ValidationRules.maxLength(255)
+            ]);
+
+            // Toggle password visibility
+            $('.toggle-password').on('click', function() {
+                $(this).toggleClass('feather-eye feather-eye-off');
+                var input = $('#password');
+                const isValid = input.hasClass('is-valid');
+                const isInvalid = input.hasClass('is-invalid');
+
+                if (input.attr('type') === 'password') {
+                    input.attr('type', 'text');
+                } else {
+                    input.attr('type', 'password');
+                }
+
+                // Maintain validation classes after changing input type
+                if (isValid) {
+                    input.addClass('is-valid');
+                }
+                if (isInvalid) {
+                    input.addClass('is-invalid');
+                }
+            });
+
+            // Add device fingerprinting for security logs
+            $('#login-form').on('submit', function() {
+                // Add device fingerprint to form data as a hidden field
+                if (!$('#device_info').length) {
+                    const deviceInfo = SecurityHelper.getDeviceFingerprint();
+                    const hiddenField = $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'device_info')
+                        .attr('id', 'device_info')
+                        .val(JSON.stringify(deviceInfo));
+                    $(this).append(hiddenField);
+                }
+            });
+        });
+    </script>
+@endpush
