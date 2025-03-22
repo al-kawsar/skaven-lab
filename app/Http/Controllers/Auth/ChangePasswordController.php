@@ -3,31 +3,66 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\ChangePasswordRequest;
+use App\Services\AuthService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class ChangePasswordController extends Controller
 {
-    public function doChange(ChangePasswordRequest $request)
+    /**
+     * @var AuthService
+     */
+    protected $authService;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param AuthService $authService
+     */
+    public function __construct(AuthService $authService)
     {
-        $payload = $request->validated();
+        $this->authService = $authService;
+    }
 
-        $new_password = bcrypt($payload['password']);
-        $user = auth()->user();
+    /**
+     * Handle the change password request
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function doChange(Request $request)
+    {
+        // Validate the request with strong password rules
+        $validator = Validator::make($request->all(), [
+            'current_password' => ['required', 'string'],
+            'password' => [
+                'required',
+                'string',
+                'confirmed',
+                Password::min(8)
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
+            ],
+        ]);
 
-        $check_password = password_verify($payload['old-password'], $user->password);
-
-        if (!$check_password) {
-            return to_route('settings.security')->withErrors('Password yang Anda masukkan salah.');
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
-        $user->update([
-            'password' => $new_password
-        ]);
+        // Call auth service to change password
+        $result = $this->authService->changePassword(
+            $request->user(),
+            $request->input('current_password'),
+            $request->input('password')
+        );
 
-        return to_route('settings.security')->with([
-            'type' => 'alert',
-            'status' => 'success',
-            'message' => 'Password berhasil diubah'
-        ]);
+        return response()->json($result, $result['success'] ? 200 : 422);
     }
 }
