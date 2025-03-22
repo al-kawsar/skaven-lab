@@ -1,0 +1,221 @@
+/* public/css/image-cropper.css */
+.cropper-container {
+    width: 100%;
+    max-height: 400px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.cropper-container img {
+    max-width: 100%;
+    display: block;
+}
+
+.img-preview-container {
+    margin-top: 20px;
+}
+
+.btn-cropper {
+    margin-right: 5px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-cropper i {
+    margin-right: 5px;
+}
+
+.cropper-wrapper {
+    display: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.crop-info {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.current-image {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.current-image h6 {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.slider-item {
+    transition: all 0.3s ease;
+}
+
+/* .slider-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+} */
+
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+#thumbnail-preview {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.btn-group {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .btn-group {
+        flex-wrap: wrap;
+    }
+
+    .btn-cropper {
+        margin-bottom: 5px;
+    }
+}
+
+/* Cropper wrapper styles */
+.cropper-wrapper {
+    display: none;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.crop-info {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4361ee;
+}
+
+.cropper-container {
+    max-height: 400px;
+    overflow: hidden;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.btn-cropper {
+    margin-right: 5px;
+}
+
+.img-preview-container {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/* Drop area styles */
+.drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 15px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.drop-area.highlight {
+    border-color: #4e73df;
+    background-color: rgba(78, 115, 223, 0.1);
+}
+
+.drop-area p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.drop-area small {
+    color: #adb5bd;
+    font-size: 12px;
+}
+
+.file-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.drop-area:hover {
+    background-color: #e9ecef;
+}
+
+
+/* Slider gallery styles */
+#slider-gallery-container {
+    padding: 15px;
+    /* background-color: #f8f9fa; */
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+#slider-gallery-container h6 {
+    color: #4361ee;
+    margin-bottom: 15px;
+}
+
+.slider-item .card {
+    transition: transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/*
+.slider-item .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+} */
+
+.slider-item .card-body {
+    display: flex;
+    justify-content: center;
+}
+
+.current-image {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.current-image h6 {
+    color: #4361ee;
+    margin-bottom: 10px;
+}
+
+/* Additional styles to make input fields look better */
+.form-control:focus {
+    border-color: #4361ee;
+    box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+}
+
+.student-submit {
+    display: flex;
+    justify-content: flex-end;
+}
