@@ -5,11 +5,13 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Borrowing extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
+    protected $table = 'lab_borrowings';
     protected $guarded = ['id'];
     protected $dates = ['borrow_date', 'created_at', 'updated_at'];
 
@@ -17,16 +19,20 @@ class Borrowing extends Model
         'user_id',
         'lab_id',
         'event',
-        'participant_count',
         'borrow_date',
         'start_time',
         'end_time',
-        'notes'
+        'notes',
+        'status'
+    ];
+
+    protected $attributes = [
+        'status' => 'menunggu' // Default status
     ];
 
     public function setBorrowDateAttribute($value)
     {
-        $this->attributes['borrow_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['borrow_date'] = Carbon::createFromFormat('Y-m-d', $value)->format('Y-m-d');
     }
 
     public function user()
