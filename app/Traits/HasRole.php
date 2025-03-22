@@ -32,8 +32,7 @@ trait HasRole
         return $this->role->permissions->contains('name', $permission);
     }
 
-    public function isAdmin(): bool
-    {
-        return in_array($this->role->name, ['superadmin', 'admin']);
+    public function isAdmin(){
+        return in_array($this->role->name, ['admin', 'superadmin']);
     }
 }
