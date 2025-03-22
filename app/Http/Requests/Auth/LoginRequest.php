@@ -23,9 +23,28 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'max:255'],
-            'password' => ['required', 'max:255'],
-            'remember' => ['nullable'],
+            'username' => ['required', 'string', 'min:3', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:255'],
+            'remember' => ['sometimes', 'boolean'],
+            'device_info' => ['sometimes', 'json'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'username.required' => 'Username wajib diisi',
+            'username.min' => 'Username minimal 3 karakter',
+            'username.max' => 'Username maksimal 255 karakter',
+            'password.required' => 'Password wajib diisi',
+            'password.min' => 'Password minimal 8 karakter',
+            'password.max' => 'Password maksimal 255 karakter',
+            'device_info.json' => 'Format informasi perangkat tidak valid',
         ];
     }
 }
