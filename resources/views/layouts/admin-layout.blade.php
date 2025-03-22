@@ -14,15 +14,18 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"rel="stylesheet">
     <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/plugins/feather/feather.css">
-    <link rel="stylesheet" href="/assets/plugins//toastr/toatr.css">
+    <link rel="stylesheet" href="/assets/plugins/toastr/toastr.css">
     <link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/assets/plugins/datatables/datatables.min.css">
     <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @yield('head')
 </head>
 
 <body>
@@ -39,11 +42,11 @@
             <div class="content container-fluid">
                 @yield('content')
             </div>
-            @include('layouts.partials.footer')
         </div>
+        @include('layouts.partials.footer')
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="/assets/plugins/datatables/datatables.min.js"></script>
     <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/feather.min.js"></script>
