@@ -17,13 +17,10 @@ class LabFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'location' => $this->faker->sentence(3),
-            'capacity' => $this->faker->randomNumber(),
+            'name' => $this->faker->company,
             'facilities' => $this->faker->sentence(5),
-            'thumbnail' => \App\Models\File::inRandomOrder()->first()->id ?? 1,
+            'thumbnail' => \App\Models\File::inRandomOrder()->first()->id ?? 1, // Gunakan ID default atau 1 jika tidak ada file
             'status' => $this->faker->randomElement(['tersedia', 'tidak tersedia']),
-
         ];
     }
 }
