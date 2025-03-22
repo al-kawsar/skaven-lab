@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Guru;
+use App\Models\Teacher;
 use App\Models\Role;
 use App\Models\Siswa;
 use App\Models\User;
@@ -19,24 +19,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleSeeder::class,
+            FileSeeder::class,
             UserSeeder::class,
             LabSeeder::class,
         ]);
         Siswa::factory(100)->create();
-        Guru::factory(100)->create();
-
-        User::create([
-            'name' => 'SMK 7 Makassar',
-            'email' => 'admin@smk7.com',
-            'password' => bcrypt('rahasia123'),
-            'role_id' => 1
-        ]);
-        User::create([
-            'name' => 'SMK 7 Makassar',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('123123123'),
-            'role_id' => 4
-        ]);
+        Teacher::factory(100)->create();
 
         Siswa::create([
             'name' => 'Andi Muh Raihan Alkawsar',
@@ -45,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Jl. Contoh Alamat',
             'jenis_kelamin' => 'l',
             'agama' => 'Islam',
-            'tgl_lahir' => '08-15-2005',
+            'tgl_lahir' => '08-01-2007',
             'foto_siswa' => null,
         ]);
 
