@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\File;
+use App\Models\User;
 
 return new class extends Migration {
     /**
@@ -12,14 +13,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('labs', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name', 100);
-            $table->string('location', 100);
-            $table->integer('capacity');
             $table->text('facilities');
             $table->enum('status', ['tersedia', 'tidak tersedia'])->default('tersedia');
-            $table->foreignIdFor(File::class, 'thumbnail');
-            // $table->foreignId('file_id')->nullable()->constrained('files')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(File::class, 'thumbnail')->nullable();
             $table->timestamps();
         });
     }
