@@ -174,10 +174,10 @@
         $('[data-toggle="tooltip"]').tooltip();
     }
     // if ($(".datatable").length > 0) {
-        // $(".datatable").DataTable({ bFilter: false });
+    // $(".datatable").DataTable({ bFilter: false });
     // }
     // if ($(".datatables").length > 0) {
-        // $(".datatables").DataTable({ bFilter: true });
+    // $(".datatables").DataTable({ bFilter: true });
     // }
     if ($(".zoom-screen .header-nav-list").length > 0) {
         $(".zoom-screen .header-nav-list").on("click", function (e) {
@@ -493,4 +493,33 @@
         return false;
     });
     feather.replace();
+    $(document).ready(function () {
+        // Set initial icon state based on sidebar
+        updateToggleIcon();
+
+        // Update icon when toggle button is clicked
+        $(document).on("click", "#toggle_btn", function () {
+            // The sidebar class will be toggled by the existing code
+            // We just need to update the icon after a short delay to allow the class to be applied
+            setTimeout(function () {
+                updateToggleIcon();
+            }, 50);
+        });
+
+        function updateToggleIcon() {
+            var icon = $("#sidebar_toggle_icon");
+
+            if ($("body").hasClass("mini-sidebar")) {
+                // If sidebar is minimized, show right arrow (to expand)
+                icon.removeClass("fa-arrow-alt-circle-left").addClass(
+                    "fa-arrow-alt-circle-right"
+                );
+            } else {
+                // If sidebar is expanded, show left arrow (to minimize)
+                icon.removeClass("fa-arrow-alt-circle-right").addClass(
+                    "fa-arrow-alt-circle-left"
+                );
+            }
+        }
+    });
 })(jQuery);
