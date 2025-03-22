@@ -114,15 +114,15 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Guru $guru)
+    public function edit(Teacher $teacher)
     {
-        return view('pages.teachers.edit', compact('guru'));
+        return view('pages.teachers.edit', compact('teacher'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Guru $guru)
+    public function update(UpdateRequest $request, Teacher $guru)
     {
         try {
             $payload = $request->validated();
@@ -149,7 +149,7 @@ class TeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Guru $id)
+    public function destroy(Teacher $id)
     {
         try {
             $id->delete();
