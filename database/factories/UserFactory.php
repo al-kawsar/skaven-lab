@@ -25,9 +25,9 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => strtolower($this->faker->firstName('male') . '@smk7.com'),
+            'email' => str()->random(3) . strtolower($this->faker->firstName('male') . rand(1, 10) . '@smk7.sch.id'),
             'role_id' => \App\Models\Role::inRandomOrder()->first()->id,
-            'password' => static::$password ??= Hash::make('rahasia123'),
+            'password' => static::$password ??= Hash::make('123123123'),
         ];
     }
 
