@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\SiswaExport;
 use App\Imports\SiswaImport;
 use App\Exports\SiswaImportTemplate;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -20,7 +22,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $data['totalData'] = Siswa::count();
-        return view('pages.admin.student.index', compact('data'));
+        return view('pages.students.index', compact('data'));
     }
 
     public function getData(Request $request)
@@ -172,17 +174,13 @@ class StudentController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        return view('pages.admin.student.create');
+        return view('pages.students.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreRequest $request)
     {
         try {
@@ -193,19 +191,13 @@ class StudentController extends Controller
             // Model akan otomatis menangani konversi format tanggal lewat mutator
             Siswa::create($payload);
 
-            return response()->json([
-                'message' => 'Siswa berhasil ditambahkan'
-            ]);
+            return $this->sendSuccessResponse($request, 'Siswa berhasil ditambahkan');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
+            return $this->sendServerErrorResponse($request, $e->getMessage(), $e);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Siswa $siswa)
     {
         // Menampilkan detail siswa dengan memanfaatkan accessor dari model
@@ -222,21 +214,17 @@ class StudentController extends Controller
             'foto_url' => $siswa->foto_url,
         ];
 
-        return view('pages.admin.student.show', compact('data'));
+        return view('pages.students.show', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Siswa $siswa)
     {
         // Sistem akan otomatis menggunakan accessor untuk format tanggal
-        return view('pages.admin.student.edit', compact('siswa'));
+        return view('pages.students.edit', compact('siswa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateRequest $request, Siswa $siswa)
     {
         try {
@@ -261,38 +249,26 @@ class StudentController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Siswa $siswa)
+    public function destroy(Request $request, Siswa $siswa)
     {
         try {
             $siswa->delete();
-            return response()->json([
-                'message' => 'Data siswa berhasil dihapus'
-            ]);
+            return $this->sendSuccessResponse($request, 'Data siswa berhasil dihapus');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
+            return $this->sendServerErrorResponse($request, $e->getMessage(), $e);
         }
     }
 
-    public function destroyAll()
+    public function destroyAll(Request $request)
     {
         try {
             Siswa::truncate();
-            return response()->json(['message' => 'Data siswa berhasil dihapus']);
+            return $this->sendSuccessResponse($request, 'Data siswa berhasil dihapus');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 500);
+            return $this->sendServerErrorResponse($request, $e->getMessage(), $e);
         }
     }
 
-    /**
-     * Menampilkan siswa berdasarkan filter jenis kelamin
-     */
     public function filterByGender(Request $request, $gender)
     {
         $length = $request->input('length', 10);
@@ -333,9 +309,7 @@ class StudentController extends Controller
         ]);
     }
 
-    /**
-     * Export data siswa ke Excel
-     */
+
     public function exportToExcel(Request $request)
     {
         // Ambil filter yang sama dengan getData
@@ -416,9 +390,7 @@ class StudentController extends Controller
         return Excel::download(new SiswaExport($siswaData), $filename);
     }
 
-    /**
-     * Statistik Siswa - Mendapatkan data statistik dalam format JSON
-     */
+
     public function getStatistics(Request $request)
     {
         try {
@@ -524,7 +496,7 @@ class StudentController extends Controller
             // Reverse the array to get chronological order
             $statisticsByRegistrationMonth = array_reverse($statisticsByRegistrationMonth);
 
-            return response()->json([
+            return $this->sendSuccessResponse($request, 'Statistics generated successfully', [
                 'by_gender' => $statisticsByGender,
                 'by_religion' => $statisticsByReligion,
                 'by_age' => $statisticsByAge,
@@ -546,16 +518,11 @@ class StudentController extends Controller
                 ]
             ]);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error generating statistics: ' . $e->getMessage()
-            ], 500);
+            return $this->sendServerErrorResponse($request, 'Error generating statistics: ' . $e->getMessage(), $e);
         }
     }
 
-    /**
-     * Menampilkan halaman statistik
-     */
+
     public function statisticsView()
     {
         // Get summary data for display at the top of the page
@@ -566,45 +533,48 @@ class StudentController extends Controller
             'added_this_month' => Siswa::where('created_at', '>=', now()->startOfMonth())->count(),
         ];
 
-        return view('pages.admin.student.statistics', compact('summary'));
+        return view('pages.students.statistics', compact('summary'));
     }
 
-    /**
-     * Import data siswa dari Excel
-     */
     public function importFromExcel(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv',
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xlsx,xls',
         ]);
+
+        if ($validator->fails()) {
+            return $this->sendValidationErrorResponse(
+                $request,
+                'Validasi file gagal',
+                $validator->errors()->toArray()
+            );
+        }
 
         try {
             Excel::import(new SiswaImport, $request->file('file'));
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Data siswa berhasil diimport'
-            ]);
+            return $this->sendSuccessResponse(
+                $request,
+                'Data siswa berhasil diimport'
+            );
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validasi gagal: ' . $e->getMessage(),
-                'errors' => $e->failures()
-            ], 422);
+            return $this->sendValidationErrorResponse(
+                $request,
+                'Validasi data gagal',
+                $e->failures()
+            );
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Import gagal: ' . $e->getMessage()
-            ], 500);
+            return $this->sendServerErrorResponse(
+                $request,
+                'Import gagal: ' . $e->getMessage(),
+                $e
+            );
         }
     }
 
-    /**
-     * Download template untuk import data
-     */
     public function downloadImportTemplate()
     {
-        return Excel::download(new SiswaImportTemplate, 'template_import_siswa.xlsx');
+        return Excel::download(new SiswaImportTemplate, "template_import_siswa_" . time() . ".xlsx");
     }
 
 }
