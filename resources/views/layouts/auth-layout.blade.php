@@ -46,45 +46,9 @@
     <script src="{{ asset('assets/js/security-helper.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 
+    @include('layouts.partials.js')
     @stack('script')
 
-    <script>
-        // Initialize security features for Laravel 12
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check for HTTPS
-            if (window.location.protocol !== 'https:' && !['localhost', '127.0.0.1'].includes(window.location
-                    .hostname)) {
-                console.warn('This site should be accessed over HTTPS for better security.');
-            }
-
-            // Add secure attributes to all cookies
-            document.cookie = "SameSite=Strict; Secure";
-
-            // Set default security options for AJAX requests
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                xhrFields: {
-                    withCredentials: true
-                },
-                cache: false
-            });
-
-            // Add event listeners to hide alerts
-            document.querySelectorAll('.alert .close').forEach(function(element) {
-                element.addEventListener('click', function() {
-                    this.closest('.alert').remove();
-                });
-            });
-
-            // Initialize the security helper if available
-            if (typeof SecurityHelper !== 'undefined') {
-                SecurityHelper.initialize();
-            }
-        });
-    </script>
 </body>
 
 </html>

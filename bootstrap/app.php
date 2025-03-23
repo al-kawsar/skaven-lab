@@ -14,7 +14,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectGuestsTo(fn(Request $request) => route('auth.login'));
+        $middleware->redirectGuestsTo(function (Request $request) {
+            session()->flash('type', 'toast');
+            session()->flash('status', 'warning');
+            session()->flash('message', 'Silakan login terlebih dahulu untuk melanjutkan.');
+            return route('auth.login');
+        });
+
         $middleware->web([
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,

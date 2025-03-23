@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
+
 
 class LogoutController extends Controller
 {
@@ -29,20 +26,26 @@ class LogoutController extends Controller
 
     /**
      * Handle user logout securely
-     * 
+     *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
     {
         $result = $this->authService->logout();
 
-        // Flash a success message to session
         if ($result['success']) {
-            return redirect($result['redirect'])->with('success', $result['message']);
+            return redirect($result['redirect'])->with([
+                'type' => 'toast',
+                'status' => 'success',
+                'message' => $result['message'] ?? 'Anda telah berhasil keluar dari sistem.'
+            ]);
         }
 
-        // If logout somehow fails, just redirect to login anyway
-        return redirect()->route('auth.login');
+        return $this->sendFailedResponse(
+            $request,
+            $result['message'] ?? 'Terjadi kesalahan saat proses logout.',
+            $result['statusCode'] ?? 400
+        );
     }
 }

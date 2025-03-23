@@ -48,6 +48,7 @@ class LoginController extends Controller
      */
     public function index(): View
     {
+
         return view('pages.auth.login');
     }
 
@@ -104,7 +105,7 @@ class LoginController extends Controller
 
     /**
      * Parse device info from request for security logging
-     * 
+     *
      * @param Request $request
      * @return array
      */

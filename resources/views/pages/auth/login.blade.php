@@ -13,7 +13,6 @@
                 {{-- <p class="account-subtitle">Belum punya akun? <a href="{{ route('auth.register') }}">Registrasi</a></p> --}}
                 <h2>Sign in</h2>
 
-                <!-- Server-side validation errors using Toastr -->
                 @if ($errors->any())
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
@@ -75,13 +74,12 @@
 @endsection
 
 @push('script')
-    <!-- Add security helper and form validation utility -->
     <script src="{{ asset('assets/js/security-helper.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            // Initialize form validator
+
             const loginValidator = new FormValidator('login-form', {
                 validateOnKeyup: true,
                 validateOnBlur: true,
@@ -89,21 +87,18 @@
                 showToastOnSubmit: true
             });
 
-            // Add validation rules for username
             loginValidator.addField('username', [
                 ValidationRules.required,
                 ValidationRules.minLength(3),
                 ValidationRules.maxLength(255)
             ]);
 
-            // Add validation rules for password
             loginValidator.addField('password', [
                 ValidationRules.required,
                 ValidationRules.minLength(8),
                 ValidationRules.maxLength(255)
             ]);
 
-            // Toggle password visibility
             $('.toggle-password').on('click', function() {
                 $(this).toggleClass('feather-eye feather-eye-off');
                 var input = $('#password');
@@ -116,7 +111,6 @@
                     input.attr('type', 'password');
                 }
 
-                // Maintain validation classes after changing input type
                 if (isValid) {
                     input.addClass('is-valid');
                 }
@@ -125,9 +119,7 @@
                 }
             });
 
-            // Add device fingerprinting for security logs
             $('#login-form').on('submit', function() {
-                // Add device fingerprint to form data as a hidden field
                 if (!$('#device_info').length) {
                     const deviceInfo = SecurityHelper.getDeviceFingerprint();
                     const hiddenField = $('<input>')
