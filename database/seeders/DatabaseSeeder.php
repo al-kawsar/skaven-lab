@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Teacher;
 use App\Models\Role;
-use App\Models\Siswa;
+use App\Models\Student;
 use App\Models\User;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
@@ -22,11 +22,13 @@ class DatabaseSeeder extends Seeder
             FileSeeder::class,
             UserSeeder::class,
             LabSeeder::class,
+            SettingSeeder::class,
+            EquipmentSeeder::class,
         ]);
-        Siswa::factory(100)->create();
+        Student::factory(100)->create();
         Teacher::factory(100)->create();
 
-        Siswa::create([
+        Student::create([
             'name' => 'Andi Muh Raihan Alkawsar',
             'nis' => '22355',
             'nisn' => '0077865020',
