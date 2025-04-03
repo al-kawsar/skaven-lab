@@ -22,7 +22,7 @@
                             <div class="col-md-12">
                                 <div class="profile-user-box p-2">
                                     <div class="profile-user-img">
-                                        <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : '/assets/img/profile.jpg' }}"
+                                        <img src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : '/assets/img/profile.png' }}"
                                             alt="Profile">
                                         {{-- <div class="form-group students-up-files profile-edit-icon mb-0">
                                             <div class="uplod d-flex">
