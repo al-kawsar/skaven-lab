@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Siswa;
+use App\Models\Student;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\Log;
@@ -47,7 +47,7 @@ class SiswaImport
                 $siswaData = $this->mapRowToModel($row, $columnMap);
 
                 // Create the model
-                Siswa::create($siswaData);
+                Student::create($siswaData);
                 $successCount++;
             }
 
