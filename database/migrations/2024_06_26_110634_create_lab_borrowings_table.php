@@ -12,10 +12,20 @@ return new class extends Migration {
     {
         Schema::create('lab_borrowings', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('borrow_code')->nullable()->unique();
+            $table->string('letter_code')->nullable()->unique();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignUuid('lab_id')->constrained('labs', 'id')->onDelete('cascade');
             $table->string('event');
-            $table->enum('status', ['menunggu', 'disetujui', 'ditolak', 'digunakan'])->default('menunggu');
+            $table->enum('status', [
+                'menunggu',      // Menunggu persetujuan admin
+                'disetujui',     // Disetujui oleh admin
+                'ditolak',       // Ditolak oleh admin
+                'digunakan',     // Sedang digunakan
+                'selesai',       // Peminjaman selesai
+                'dibatalkan',    // Dibatalkan oleh peminjam
+                'kadaluarsa'     // Melewati batas waktu peminjaman
+            ])->default('menunggu');
             $table->date('borrow_date');
             $table->time('start_time');
             $table->time('end_time');
