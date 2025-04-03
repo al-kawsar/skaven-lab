@@ -21,43 +21,41 @@ class LabSeeder extends Seeder
             'user_id' => User::first()->id
         ]);
 
-        // Lab::create([
-        //     'name' => 'Lab Jaringan Komputer',
-        //     'capacity' => 25,
-        //     'facilities' => 'Router, Switch, Server, Komputer, Internet',
-        //     'status' => 'tersedia',
-        //     'owner_id' => User::first()->id
-        // ]);
+        Lab::create([
+            'name' => 'Lab Jaringan Komputer',
+            'facilities' => '25 unit komputer dengan spesifikasi Intel Core i5, RAM 8GB, SSD 256GB dan monitor 24 inci Full HD. Dilengkapi perangkat jaringan seperti router Cisco, switch manageable, server rack, patch panel dan crimping tools. Software jaringan terinstal seperti Cisco Packet Tracer, Wireshark, dan VirtualBox. Terdapat proyektor HD, AC split, akses internet dedicated 50 Mbps serta rak penyimpanan peralatan jaringan.',
+            'status' => 'tersedia',
+            'user_id' => User::first()->id
+        ]);
 
-        // Lab::create([
-        //     'name' => 'Lab Multimedia',
-        //     'capacity' => 20,
-        //     'facilities' => 'PC Editing, Kamera, Green Screen, Speaker, Proyektor',
-        //     'status' => 'tidak tersedia',
-        //     'owner_id' => User::first()->id
-        // ]);
+        Lab::create([
+            'name' => 'Lab Multimedia',
+            'facilities' => '20 unit workstation editing dengan prosesor Intel Core i7, RAM 16GB, SSD 512GB, GPU RTX 2060 dan monitor ultrawide 34 inci. Software editing terinstal seperti Adobe Creative Suite, DaVinci Resolve dan OBS Studio. Dilengkapi kamera DSLR, lighting kit, green screen backdrop, audio interface, studio monitor speaker. Ruangan kedap suara dengan AC central dan proyektor 4K.',
+            'status' => 'tidak tersedia',
+            'user_id' => User::first()->id
+        ]);
 
-        // Lab::create([
-        //     'name' => 'Lab Akuntansi dan Keuangan',
-        //     'location' => 'Samping Kelas -',
-        //     'capacity' => '1',
-        //     'facilities' => '-',
-        //     'status' => 'tersedia',
-        // ]);
-        // Lab::create([
-        //     'name' => 'Lab Administrasi Perkantoran',
-        //     'location' => 'Samping Kelas -',
-        //     'capacity' => '1',
-        //     'facilities' => '-',
-        //     'status' => 'tersedia',
-        // ]);
-        // Lab::create([
-        //     'name' => 'Lab Perawatan Sosial',
-        //     'location' => 'Samping Kelas -',
-        //     'capacity' => '1',
-        //     'facilities' => '-',
-        //     'status' => 'tersedia',
-        // ]);
+        Lab::create([
+            'name' => 'Lab Akuntansi dan Keuangan',
+            'facilities' => '30 unit komputer dengan spesifikasi Intel Core i5, RAM 8GB, SSD 256GB dan monitor 24 inci. Software akuntansi terinstal seperti MYOB, Accurate, Zahir Accounting. Dilengkapi printer kasir, scanner barcode, cash register dan peralatan penghitung uang. Ruangan ber-AC dengan proyektor HD dan papan tulis interaktif.',
+            'status' => 'tersedia',
+            'user_id' => User::first()->id
+        ]);
+
+        Lab::create([
+            'name' => 'Lab Administrasi Perkantoran',
+            'facilities' => '25 unit komputer dengan software perkantoran lengkap, mesin tik elektronik, mesin fotokopi multifungsi, scanner, printer laser, filing cabinet, telepon PABX, dan peralatan kearsipan. Ruangan dilengkapi AC split, proyektor HD dan meja resepsionis untuk praktik.',
+            'status' => 'tersedia',
+            'user_id' => User::first()->id
+        ]);
+
+        Lab::create([
+            'name' => 'Lab Perawatan Sosial',
+            'facilities' => 'Ruangan praktik dilengkapi bed pasien elektrik, manekin perawatan, peralatan medis dasar, kursi roda, walker, dan perlengkapan P3K lengkap. Tersedia area simulasi home care dengan kamar tidur dan kamar mandi khusus disabilitas. Ruangan ber-AC dengan loker penyimpanan dan area sterilisasi alat.',
+            'status' => 'tersedia',
+            'user_id' => User::first()->id
+        ]);
+
         // \App\Models\User::factory()->count(10)->create();
         // \App\Models\File::factory()->count(5)->create();
         // for($i=1; $i < 1000; $i++){
