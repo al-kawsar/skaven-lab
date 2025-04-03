@@ -27,7 +27,7 @@ class AuthService
         $throttleKey = Str::lower($credentials['username']) . '|' . request()->ip();
 
         // Check if too many attempts
-        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+        if (RateLimiter::tooManyAttempts($throttleKey, 3)) {
             $seconds = RateLimiter::availableIn($throttleKey);
             return [
                 'success' => false,
