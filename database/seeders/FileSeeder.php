@@ -15,16 +15,16 @@ class FileSeeder extends Seeder
      */
     public function run(): void
     {
-    //     $fileService = new FileService();
-    //     // Ambil file dari URL dan buat file sementara
-    //     $fileContents = file_get_contents('http://lab-managament.test/assets/img/profile.jpg');
-    //     $tempPath = sys_get_temp_dir() . '/profile.jpg'; // Simpan di folder sementara
-    //     file_put_contents($tempPath, $fileContents);
+        //     $fileService = new FileService();
+        //     // Ambil file dari URL dan buat file sementara
+        //     $fileContents = file_get_contents('http://lab-managament.test/assets/img/profile.png');
+        //     $tempPath = sys_get_temp_dir() . '/profile.png'; // Simpan di folder sementara
+        //     file_put_contents($tempPath, $fileContents);
 
-    //     // Buat instance UploadedFile dari file sementara
-    //     $uploadedFile = new UploadedFile($tempPath, 'profile.jpg');
+        //     // Buat instance UploadedFile dari file sementara
+        //     $uploadedFile = new UploadedFile($tempPath, 'profile.png');
 
-    //     // Panggil service untuk upload
-    //     $fileService->uploadFile($uploadedFile, 'lab');
+        //     // Panggil service untuk upload
+        //     $fileService->uploadFile($uploadedFile, 'lab');
     }
 }
