@@ -3,15 +3,15 @@
 @section('title', 'Login')
 @section('auth-content')
     <div class="loginbox">
-        <div class="login-left">
-            <img class="img-fluid" src="/assets/img/login.png" alt="Logo">
+        <div class="login-left py-4">
+            <img class="img-fluid" src="/assets/img/smkn7.png" alt="Logo" style="max-width: 25%; height: auto;">
         </div>
         <div class="login-right">
             <div class="login-right-wrap">
-                <h1 class="mb-4">Welcome to Lab Management</h1>
+                <h1 class="mb-4">Selamat Datang</h1>
 
                 {{-- <p class="account-subtitle">Belum punya akun? <a href="{{ route('auth.register') }}">Registrasi</a></p> --}}
-                <h2>Sign in</h2>
+                <h2>Login</h2>
 
                 @if ($errors->any())
                     <script>
@@ -22,7 +22,7 @@
                         });
                     </script>
                 @endif
-                <form id="login-form" class="pristine" method="POST" action="{{ route('auth.doLogin') }}" novalidate>
+                <form id="login-form" class="pristine" method="POST" action="{{ route('auth.login.submit') }}" novalidate>
                     @csrf
                     <div class="form-group">
                         <label style="z-index: 20;">Username <span class="login-danger ">*</span></label>
@@ -33,7 +33,7 @@
                             </span>
                             <input required class="form-control" autofocus value="{{ old('username') }}" id="username"
                                 name="username" type="text" autocomplete="username" minlength="3" maxlength="255"
-                                style="font-size: 0.75rem; padding-left: 35px;">
+                                style="font-size: .8rem; padding-left: 35px;">
                         </div>
                         <div class="invalid-feedback username-error"></div>
                     </div>
@@ -46,7 +46,7 @@
                             </span>
                             <input required class="form-control pass-input" id="password" name="password" type="password"
                                 autocomplete="current-password" minlength="8" maxlength="255"
-                                style="font-size: 0.75rem; padding-left: 35px;">
+                                style="font-size: .8rem; padding-left: 35px;">
                             <div class="position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);">
                                 <span class="feather-eye-off toggle-password" style="cursor: pointer; z-index: 20;"></span>
                             </div>
