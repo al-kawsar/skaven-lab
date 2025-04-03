@@ -1,0 +1,29 @@
+/* Form Validator Styles */
+.validation-error-item {
+    color: #dc3545;
+    padding: 3px 0;
+}
+
+.validation-error-header {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.validation-category-header {
+    color: #495057;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.validation-error-list {
+    list-style-type: none;
+    padding-left: 10px;
+    margin: 0;
+}
