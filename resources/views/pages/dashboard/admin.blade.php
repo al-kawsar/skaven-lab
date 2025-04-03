@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-sub-header">
-                    <h3 class="page-title">Welcome {{ auth()->user()->name }}!</h3>
+                    <h3 class="page-title fw-bold">Welcome {{ auth()->user()->name }}!</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ul>
@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-
+    {{-- @dump($errors->any()) --}}
     <!-- Statistics Cards -->
     <div class="row">
         <div class="col-xl-4 col-sm-6 col-12 d-flex">
