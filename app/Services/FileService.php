@@ -19,51 +19,20 @@ class FileService
 
         Storage::put('/public/' . $path . '/' . $fileName . '.' . $extension, File::get($file));
 
-        $data = FileModel::create([
-            'url' => request()->schemeAndHttpHost(),
-            'path_name' => $pathName,
-            'file_name' => $fileName,
-            'extension' => $extension,
-            'size' => $size
-        ]);
-
-        return $data;
+        return $this->createFileRecord($fileName, null, $size, $path . '/' . $fileName . '.' . $extension);
     }
 
     public function getFileById($id)
     {
-        $file = FileModel::findOrFail($id);
-
-        return $file;
+        return FileModel::findOrFail($id);
     }
 
     public function deleteFileById($id)
     {
-        $file = FileModel::findOrFail($id);
-
+        $file = $this->getFileById($id);
         Storage::delete(str_replace('storage', 'public', $file->path_name));
-
         $file->delete();
-
         return $file;
-    }
-
-    public function createFileFromBase64($base64Image, $directory)
-    {
-        // Use the ImageHelper to save the file
-        $fileData = \App\Helpers\ImageHelper::saveBase64Image($base64Image, $directory);
-
-        if ($fileData) {
-            // Create a file record
-            return $this->createFileRecord(
-                $fileData['filename'],
-                $fileData['mime_type'],
-                $fileData['size'],
-                $fileData['path']
-            );
-        }
-
-        return null;
     }
 
     public function createFileRecord($fileName, $mimeType, $size, $pathName)
