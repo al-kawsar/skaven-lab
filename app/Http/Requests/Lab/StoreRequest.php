@@ -28,7 +28,6 @@ class StoreRequest extends FormRequest
             'slider_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ];
     }
-
     public function messages()
     {
         return [
