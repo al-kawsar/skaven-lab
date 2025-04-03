@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Setting extends Model
 {
@@ -14,42 +15,7 @@ class Setting extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'id',
-        'institution_name',
-        'institution_code',
-        'contact_email',
-        'contact_phone',
-        'address',
-        'timezone',
-        'date_format',
-        'footer_text',
-        'logo',
-        'favicon',
-        'min_password_length',
-        'require_special_char',
-        'require_number',
-        'require_uppercase',
-        'password_expiry_days',
-        'enable_2fa',
-        'max_login_attempts',
-        'lockout_duration',
-        'session_lifetime',
-        'force_https',
-        'require_student_id',
-        'enable_id_card_scan',
-        'require_id_verification',
-        'enable_email_notifications',
-        'notify_admin_on_new_booking',
-        'notify_late_returns',
-        'return_reminder_hours',
-        'log_retention_days',
-        'log_equipment_condition',
-        'require_return_notes',
-        'enable_detailed_audit_log',
-        'student_can_borrow_equipment',
-        'student_can_book_lab'
-    ];
+    protected $fillable = ['key', 'value', 'group', 'type', 'options', 'label'];
 
     /**
      * The attributes that should be cast.
@@ -57,21 +23,82 @@ class Setting extends Model
      * @var array
      */
     protected $casts = [
-        'require_special_char' => 'boolean',
-        'require_number' => 'boolean',
-        'require_uppercase' => 'boolean',
-        'enable_2fa' => 'boolean',
-        'force_https' => 'boolean',
-        'require_student_id' => 'boolean',
-        'enable_id_card_scan' => 'boolean',
-        'require_id_verification' => 'boolean',
-        'enable_email_notifications' => 'boolean',
-        'notify_admin_on_new_booking' => 'boolean',
-        'notify_late_returns' => 'boolean',
-        'log_equipment_condition' => 'boolean',
-        'require_return_notes' => 'boolean',
-        'enable_detailed_audit_log' => 'boolean',
-        'student_can_borrow_equipment' => 'boolean',
-        'student_can_book_lab' => 'boolean'
+        'options' => 'array'
     ];
+
+    /**
+     * Get a setting value by key
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public static function get($key, $default = null)
+    {
+        // Try to get from cache first
+        $cachedSettings = Cache::get('app_settings');
+
+        if ($cachedSettings && isset($cachedSettings[$key])) {
+            return $cachedSettings[$key];
+        }
+
+        // If not in cache, fetch from database
+        $setting = self::where('key', $key)->first();
+        return $setting ? $setting->value : $default;
+    }
+
+    /**
+     * Set a setting value
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return \App\Models\Setting
+     */
+    public static function set($key, $value)
+    {
+        $setting = self::where('key', $key)->first();
+
+        if ($setting) {
+            $setting->value = $value;
+            $setting->save();
+        } else {
+            $setting = self::create(['key' => $key, 'value' => $value]);
+        }
+
+        // Clear the cache
+        Cache::forget('app_settings');
+
+        return $setting;
+    }
+
+    /**
+     * Get all settings as key-value pairs
+     *
+     * @return array
+     */
+    public static function getAllSettings()
+    {
+        return Cache::remember('app_settings', 86400, function () {
+            return self::pluck('value', 'key')->toArray();
+        });
+    }
+
+    /**
+     * Get settings by group
+     *
+     * @param string $group
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getByGroup($group)
+    {
+        return self::where('group', $group)->get();
+    }
+
+    /**
+     * Clear the settings cache
+     */
+    public static function clearCache()
+    {
+        Cache::forget('app_settings');
+    }
 }
