@@ -5,7 +5,7 @@ html {
 body {
     background-color: #f7f7fa;
     color: #333;
-    font-family: roboto, sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     height: 100%;
     line-height: 1.5;
@@ -18,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: roboto, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin-top: 0;
     color: #000
 }
@@ -1808,6 +1808,7 @@ div.dataTables_wrapper div.dataTables_length select {
 
 .page-title {
     color: #333;
+    font-weight: 700;
     margin-bottom: 5px
 }
 
@@ -3030,7 +3031,7 @@ footer p {
 
 .page-title {
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 700;
     color: #2c323f;
     margin-bottom: 5px
 }
@@ -3092,18 +3093,18 @@ footer p {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     display: flex;
+    flex-direction: column;
     margin: 1.875rem auto;
-    max-width: 800px;
+    max-width: 400px;
     min-height: 500px;
     width: 100%
 }
 
 .login-wrapper .loginbox .login-left {
     align-items: center;
-    background: #18aefa;
     flex-direction: column;
     justify-content: end;
-    width: 400px;
+    width: 100%;
     display: flex;
     background-blend-mode: multiply;
     border-radius: 8px 20px 20px 8px;
@@ -3939,13 +3940,13 @@ footer p {
 .fc-toolbar h2 {
     font-size: 18px;
     font-weight: 600;
-    font-family: roboto, sans-serif;
+    font-family: 'Poppins', sans-serif;
     line-height: 30px;
     text-transform: uppercase
 }
 
 .fc-day-grid-event .fc-time {
-    font-family: roboto, sans-serif
+    font-family: 'Poppins', sans-serif
 }
 
 .fc-day {
@@ -4038,13 +4039,13 @@ footer p {
 .fc-basic-view td.fc-week-number span {
     padding-right: 8px;
     font-weight: 700;
-    font-family: roboto, sans-serif
+    font-family: 'Poppins', sans-serif
 }
 
 .fc-basic-view td.fc-day-number {
     padding-right: 8px;
     font-weight: 700;
-    font-family: roboto, sans-serif
+    font-family: 'Poppins', sans-serif
 }
 
 .event-form .input-group .form-control {
@@ -11184,6 +11185,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
         height: 355px
     }
 }
+
 .is-invalid {
     border-color: #dc3545 !important;
     padding-right: calc(1.5em + 0.75rem) !important;
@@ -11218,4 +11220,104 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
 form.pristine .form-control:invalid {
     border-color: #dee2e6;
     background-image: none;
+}
+
+.time-display {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.time-display small {
+    font-size: 80%;
+    font-weight: 400;
+    margin-left: 3px;
+}
+
+/* Add subtle background for time cells to improve readability */
+table.dataTable td:nth-child(4),
+table.dataTable td:nth-child(5) {
+    background-color: rgba(248, 249, 250, 0.5);
+}
+
+.status-finished {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.status-expired {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.status-active {
+    font-weight: bold;
+}
+
+/* Timeline styles */
+.borrow-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -30px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #0d6efd;
+}
+
+.timeline-item-success .timeline-marker {
+    background-color: #198754;
+}
+
+.timeline-item-danger .timeline-marker {
+    background-color: #dc3545;
+}
+
+.timeline-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.timeline-date {
+    margin: 0;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Floating filter indicators */
+.active-filters {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 5px 0;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.filter-badge {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 3px 8px;
+    background: #e9ecef;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.filter-badge .remove-filter {
+    cursor: pointer;
+    margin-left: 5px;
+    color: #6c757d;
+}
+
+.filter-badge .remove-filter:hover {
+    color: #dc3545;
 }
