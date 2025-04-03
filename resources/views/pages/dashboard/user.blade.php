@@ -169,7 +169,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table star-student table-hover table-center table-borderless table-striped">
+                        <table class="table star-student  table-hover table-center table-borderless">
                             <thead class="thead-light">
                                 <tr>
                                     <th>ID</th>
