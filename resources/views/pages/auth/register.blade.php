@@ -11,7 +11,7 @@
             <div class="login-right-wrap">
                 <h1>Sign Up</h1>
                 <p class="account-subtitle">Enter details to create your account</p>
-                <form method="POST" action="{{ route('auth.doRegister') }}">
+                <form method="POST" action="{{ route('auth.register.submit') }}">
                     @csrf
                     @method('POST')
                     <div class="form-group">
