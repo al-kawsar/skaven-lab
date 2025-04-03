@@ -16,28 +16,28 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'SuperAdmin - SMKN 7 Makassar',
-            'email' => 'superadmin@belajar.id',
+            'email' => 'raihanalkawsar92@gmail.com',
             'password' => bcrypt('123123123'),
             'role_id' => User::ROLE_SUPERADMIN
         ]);
 
         User::create([
             'name' => 'Staff Admin - SMKN 7 Makassar',
-            'email' => 'admin@smk7.sch.id',
+            'email' => 'rehanalka9@gmail.com',
             'password' => bcrypt('123123123'),
             'role_id' => User::ROLE_ADMIN
         ]);
 
         User::create([
             'name' => 'Ibrahim Mallombassang',
-            'email' => 'ibrahim@smk7.sch.id',
+            'email' => 'tlod9906@gmail.com',
             'password' => bcrypt('123123123'),
             'role_id' => User::ROLE_TEACHER
         ]);
 
         User::create([
             'name' => 'siswa',
-            'email' => 'andimuhraihan22355@smk7.sch.id',
+            'email' => 'raihanalka80@gmail.com',
             'password' => bcrypt('123123123'),
             'role_id' => User::ROLE_STUDENT
         ]);
