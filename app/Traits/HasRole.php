@@ -22,8 +22,11 @@ trait HasRole
         $this->save();
     }
 
-    public function hasRole(string $role): bool
+    public function hasRole($role): bool
     {
+        if (is_array($role)) {
+            return in_array($this->role->name, $role);
+        }
         return $this->role->name === $role;
     }
 
@@ -32,7 +35,8 @@ trait HasRole
         return $this->role->permissions->contains('name', $permission);
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         return in_array($this->role->name, ['admin', 'superadmin']);
     }
 }
