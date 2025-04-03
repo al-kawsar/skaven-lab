@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Siswa>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
  */
 class StudentFactory extends Factory
 {
@@ -16,7 +16,7 @@ class StudentFactory extends Factory
      */
     public function definition(): array
     {
-         return [
+        return [
             'name' => $this->faker->name,
             'nis' => $this->faker->unique()->randomNumber(6),
             'nisn' => $this->faker->unique()->numberBetween(100000000000, 999999999999), // Memastikan 12 digit
