@@ -19,17 +19,71 @@ class SecurityHeaders
     {
         $response = $next($request);
 
-        // Content Security Policy
+        // Daftar domain yang diizinkan
+        $trustedDomains = [
+            'cdn.jsdelivr.net',
+            'cdnjs.cloudflare.com',
+            'code.jquery.com',
+            'fonts.googleapis.com',
+            'fonts.gstatic.com',
+        ];
+
+        // Daftar Vite development URLs
+        $viteUrls = app()->environment('local') ? [
+            'localhost:5173',
+            '127.0.0.1:5173',
+            '[::1]:5173'
+        ] : [];
+
+        // Gabungkan trusted domains dengan Vite URLs jika di local
+        $scriptSrcDomains = array_merge(
+            $trustedDomains,
+            array_map(fn($url) => "http://{$url}", $viteUrls),
+            array_map(fn($url) => "https://{$url}", $viteUrls)
+        );
+
+        // Base CSP directives
+        $cspDirectives = [
+            // Default fallback
+            "default-src 'self'",
+
+            // Script sources
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' " . implode(' ', $scriptSrcDomains),
+
+            // Explicitly set script-src-elem to match script-src
+            "script-src-elem 'self' 'unsafe-inline' 'unsafe-eval' " . implode(' ', $scriptSrcDomains),
+
+            // Style sources
+            "style-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com fonts.googleapis.com",
+
+            // Image sources
+            "img-src 'self' data: blob:",
+
+            // Font sources
+            "font-src 'self' data: cdn.jsdelivr.net cdnjs.cloudflare.com fonts.gstatic.com",
+
+            // Connect sources (for Vite HMR in development)
+            "connect-src 'self'" . (app()->environment('local') ?
+                " ws://localhost:5173 ws://127.0.0.1:5173 ws://[::1]:5173" .
+                " http://localhost:5173 http://127.0.0.1:5173 http://[::1]:5173" : ""),
+
+            // Frame sources
+            "frame-src 'self'",
+
+            // Object sources
+            "object-src 'none'",
+
+            // Media sources
+            "media-src 'self'",
+
+            // Manifest sources
+            "manifest-src 'self'"
+        ];
+
+        // Set Content Security Policy
         $response->headers->set(
             'Content-Security-Policy',
-            "default-src 'self'; " .
-            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://code.jquery.com; " .
-            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; " .
-            "img-src 'self' data:; " .
-            "font-src 'self' data: https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.gstatic.com; " .
-            "connect-src 'self'; " .
-            "frame-src 'self'; " .
-            "object-src 'none';"
+            implode('; ', array_unique($cspDirectives))
         );
 
         // Prevent MIME type sniffing
@@ -49,22 +103,11 @@ class SecurityHeaders
         // Referrer Policy
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-        // Feature Policy
-        $response->headers->set(
-            'Feature-Policy',
-            "geolocation 'self'; " .
-            "microphone 'none'; " .
-            "camera 'none'; " .
-            "payment 'none';"
-        );
-
-        // Permissions Policy (newer version of Feature Policy)
+        // Permissions Policy (replaces Feature Policy)
         $response->headers->set(
             'Permissions-Policy',
-            "geolocation=(self), " .
-            "microphone=(), " .
-            "camera=(), " .
-            "payment=()"
+            "geolocation=(self), microphone=(), camera=(), payment=(), " .
+            "autoplay=(), fullscreen=(self), picture-in-picture=(*)"
         );
 
         // Cache control for sensitive pages
