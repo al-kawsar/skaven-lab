@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->register(\Barryvdh\DomPDF\ServiceProvider::class);
     }
 
     /**
@@ -24,19 +25,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        App::setLocale('id');
         Carbon::setLocale('id');
         RateLimiter::for('login', function (Request $request) {
             return [
-                Limit::perMinute(500),
-                Limit::perMinute(3)->by($request->input('email')),
+                Limit::perMinute(60),
+                Limit::perMinute(10)->by($request->input('username')),
+                Limit::perMinute(10)->by($request->ip()),
             ];
         });
         RateLimiter::for('global', function (Request $request) {
             return Limit::perMinute(1000);
         });
 
-        // Load the custom CSS file
         Blade::component('image-uploader', \App\View\Components\ImageUploader::class);
         Blade::component('image-preview', \App\View\Components\ImagePreview::class);
+
     }
+
 }
