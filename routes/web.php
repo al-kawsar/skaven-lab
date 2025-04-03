@@ -1,53 +1,49 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Dashboard\DashboardController;
 
-Route::redirect('/', '/dashboard');
-Route::get('/dashboard', DashboardController::class)->middleware('auth')->name('dashboard');
 
-Route::name('auth.')->prefix('auth')->group(function () {
-    // Guest routes
-    Route::middleware('guest')->group(function () {
-        Route::controller(LoginController::class)->group(function () {
-            Route::get('login', 'index')->name('login');
-            Route::post('login', 'doLogin')
-                ->middleware(['throttle:5,1'])
-                ->name('doLogin');
-        });
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Main entry point for all web routes.
+|
+*/
 
-        Route::controller(RegisterController::class)->group(function () {
-            Route::post('register', 'doRegister')
-                ->middleware(['throttle:3,1'])
-                ->name('doRegister');
-        });
-    });
-
-    // Authenticated routes
-    Route::middleware(['auth'])->group(function () {
-        Route::controller(LogoutController::class)->group(function () {
-            Route::match(['get', 'post'], 'logout', 'logout')
-                ->middleware('throttle:6,1')
-                ->name('logout');
-        });
-
-        Route::controller(ChangePasswordController::class)->group(function () {
-            Route::post('change-password', 'doChange')
-                ->middleware(['throttle:5,1'])
-                ->name('change-password');
-        });
-    });
+// Home/Landing page
+Route::get('/', function () {
+    return redirect()->route('dashboard');
 });
 
-require __DIR__ . '/app/profile.php';
-require __DIR__ . '/app/user.php';
-require __DIR__ . '/app/lab.php';
-require __DIR__ . '/app/item.php';
-require __DIR__ . '/app/borrow.php';
-require __DIR__ . '/app/settings.php';
+// Dashboard (protected)
+Route::get('/dashboard', DashboardController::class)
+    ->middleware(['auth'])
+    ->name('dashboard');
 
+Route::get('/sa', DashboardController::class)
+    ->middleware(['auth'])
+    ->name('notifications.index');
+
+// Authentication routes
+require __DIR__ . '/app/auth.php';
+
+// User module routes
+require __DIR__ . '/app/user.php';
+
+// Laboratory module routes
+require __DIR__ . '/app/lab.php';
+
+// Equipment/Inventory module routes
+require __DIR__ . '/app/inventory.php';
+
+// Borrowing module routes
+require __DIR__ . '/app/borrowing.php';
+
+// Reports module routes
+require __DIR__ . '/app/report.php';
+
+// Settings module routes
+require __DIR__ . '/app/setting.php';
