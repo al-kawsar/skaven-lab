@@ -28,7 +28,7 @@ class EquipmentLocationTransformer
             return '-';
         }
         return strlen($description) > 50
-            ? substr($description, 0, 50) . '...'
-            : $description;
+        ? substr($description, 0, 50) . '...'
+        : $description;
     }
 }

@@ -5,7 +5,7 @@ html {
 body {
     background-color: #f7f7fa;
     color: #333;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open sans', sans-serif;
     font-size: 15px;
     height: 100%;
     line-height: 1.5;
@@ -18,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open sans', sans-serif;
     margin-top: 0;
     color: #000
 }
@@ -3940,13 +3940,13 @@ footer p {
 .fc-toolbar h2 {
     font-size: 18px;
     font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open sans', sans-serif;
     line-height: 30px;
     text-transform: uppercase
 }
 
 .fc-day-grid-event .fc-time {
-    font-family: 'Poppins', sans-serif
+    font-family: 'Open sans', sans-serif
 }
 
 .fc-day {
@@ -4039,13 +4039,13 @@ footer p {
 .fc-basic-view td.fc-week-number span {
     padding-right: 8px;
     font-weight: 700;
-    font-family: 'Poppins', sans-serif
+    font-family: 'Open sans', sans-serif
 }
 
 .fc-basic-view td.fc-day-number {
     padding-right: 8px;
     font-weight: 700;
-    font-family: 'Poppins', sans-serif
+    font-family: 'Open sans', sans-serif
 }
 
 .event-form .input-group .form-control {
@@ -9956,6 +9956,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
 
     .mini-sidebar.expand-menu .sidebar {
         width: 240px
+
     }
 
     .mini-sidebar .menu-title {
@@ -10167,8 +10168,8 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
     }
 
     .sidebar {
-        margin-left: -225px;
-        width: 225px;
+        margin-left: -300px;
+        width: 300px;
         -webkit-transition: all .4s ease;
         -moz-transition: all .4s ease;
         transition: all .4s ease;
@@ -10442,609 +10443,609 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
     }
 
     .login-wrapper .loginbox .login-left {
-        display: none
-    }
-
-    .login-wrapper .loginbox {
-        max-width: 450px;
-        min-height: unset
-    }
-
-    .login-wrapper .loginbox .login-right {
-        float: none;
-        padding: 1.875rem;
-        width: 100%
-    }
-
-    .left-action {
-        text-align: center;
-        margin-bottom: 15px
-    }
-
-    .right-action {
-        text-align: center
-    }
-
-    .top-action-left .float-left {
-        float: none !important
-    }
-
-    .top-action-left .btn-group {
-        margin-bottom: 15px
-    }
-
-    .top-action-right {
-        text-align: center
-    }
-
-    .top-action-right a.btn.btn-white {
-        margin-bottom: 15px
-    }
-
-    .mail-sent-time {
-        float: left;
-        margin-top: 10px;
-        width: 100%
-    }
-
-    .profile-btn {
-        flex: 0 0 100%;
-        margin-top: 20px
-    }
-
-    .edit-link {
-        font-size: .875rem;
-        margin-top: 0
-    }
-
-    .product_price {
-        font-size: 1.5rem
-    }
-
-    .login-wrapper .loginbox .login-right h1 {
-        font-size: 22px
-    }
-
-    .error-box h1 {
-        font-size: 6em
-    }
-
-    .error-box .btn {
-        font-size: 15px;
-        min-width: 150px;
-        padding: 8px 20px
-    }
-
-    .user-menu {
-        padding-right: 0
-    }
-
-    .page-title {
-        font-size: 22px
-    }
-
-    .db-info h3 {
-        font-size: 22px
-    }
-
-    .app-listing li {
-        width: 100%
-    }
-
-    .invoices-tabs ul li {
-        margin-right: 0;
-        display: block;
-        margin-bottom: 14px
-    }
-
-    .invoices-tabs ul li a {
-        padding-bottom: 6px
-    }
-
-    .selectBox p {
-        font-size: 12px
-    }
-
-    .report-btn .btn {
-        font-size: 14px;
-        padding: 10px 0
-    }
-
-    .invoices-tabs ul li a {
-        font-size: 15px
-    }
-
-    .inovices-widget-header .inovices-amount {
-        font-size: 20px
-    }
-
-    .invoices-settings-btn .btn {
-        min-width: 140px;
-        padding: 8px 0;
-        font-size: 14px
-    }
-
-    .invoices-settings-btn {
-        margin-top: 20px;
-        justify-content: start
-    }
-
-    .invoices-grid-card .card-header,
-    .card-middle,
-    .invoices-grid-card .card-body,
-    .invoices-grid-card .card-footer {
-        padding: 15px
-    }
-
-    .invoice-inner-head {
-        padding: 15px
-    }
-
-    .invoice-inner-datepic {
-        padding-left: 15px;
-        padding-top: 10px;
-        padding-bottom: 15px
-    }
-
-    .invoice-details-title {
-        font-size: 16px
-    }
-
-    .field-box .btn {
-        min-width: 160px;
-        padding: 8px 0;
-        font-size: 14px
-    }
-
-    .upload-sign .btn {
-        min-width: 140px;
-        padding: 8px 0;
-        font-size: 14px
-    }
-
-    .upload-sign {
-        width: 100%
-    }
-
-    .service-upload {
-        width: 100%
-    }
-
-    .add-links {
-        font-size: 14px
-    }
-
-    .invoice-total-footer h4 {
-        font-size: 14px
-    }
-
-    .invoice-add-table th {
-        font-size: 14px
-    }
-
-    .invoice-item .customer-text {
-        font-size: 16px
-    }
-
-    .invoice-add-table h4 {
-        font-size: 16px;
-        margin-bottom: 20px
-    }
-
-    .invoices-page-header .invoices-breadcrumb-item a {
-        font-size: 14px
-    }
-
-    .invoices-create-btn .invoices-preview-link {
-        margin-right: 0
-    }
-
-    .customer-text-one {
-        font-size: 16px
-    }
-
-    .invoices-create-btn .delete-invoice-btn {
-        display: none
-    }
-
-    .invoices-create-btn .save-invoice-btn {
-        display: none
-    }
-
-    .invoice-name {
-        font-size: 14px
-    }
-
-    .invoice-head h2 {
-        font-size: 16px
-    }
-
-    .form-header h4 {
-        font-size: 18px
-    }
-
-    .bank-details-btn .btn {
-        min-width: 120px;
-        padding: 7px 0;
-        font-size: 14px
-    }
-
-    .bank-details .modal-footer {
-        padding: 15px
-    }
-
-    .invoice-payment-box .payment-details p {
-        font-size: 14px
-    }
-
-    .invoice-head p {
-        font-size: 14px
-    }
-
-    .invoice-item-one .invoice-info {
-        text-align: left
-    }
-
-    .invoice-payment-box h4 {
-        font-size: 15px
-    }
-
-    .invoice-payment-box .payment-details {
-        margin-bottom: 20px;
-        width: 100%
-    }
-
-    .invoice-payment-box .payment-details p {
-        font-size: 14px
-    }
-
-    .invoice-payment-box h4 {
-        font-size: 15px
-    }
-
-    .invoice-item .invoice-details-two {
-        margin-bottom: 20px;
-        font-size: 14px
-    }
-
-    .invoice-terms p {
-        font-size: 14px
-    }
-
-    .nav-tabs.menu-tabs .nav-link {
-        display: block;
-        text-align: center
-    }
-
-    .nav-tabs.menu-tabs .nav-item {
-        display: block
-    }
-
-    .card .card-header .card-title {
-        font-size: 16px
-    }
-
-    .links-cont .form-group {
-        margin-bottom: 10px
-    }
-
-    .settings-form .trash {
-        margin-bottom: 10px
-    }
-
-    .settings-menu-links .nav {
-        display: block
-    }
-
-    .invoices-tabs ul li a {
-        padding-bottom: 6px
-    }
-
-    .app-listing li {
-        width: 100%
-    }
-
-    .report-btn .btn {
-        font-size: 14px;
-        padding: 10px 0
-    }
-
-    .invoices-tabs ul li a {
-        font-size: 15px
-    }
-
-    .invoices-tabs ul li {
-        margin-right: 0;
-        display: block;
-        margin-bottom: 14px
-    }
-
-    .invoices-settings-btn {
-        margin-top: 20px;
-        justify-content: start
-    }
-
-    .invoice-head h2 {
-        font-size: 16px
-    }
-
-    .invoice-head p {
-        font-size: 14px
-    }
-
-    .invoice-item-one .invoice-info {
-        text-align: left
-    }
-
-    .invoice-payment-box .payment-details {
-        margin-bottom: 20px
-    }
-
-    .invoice-item .invoice-details-two {
-        margin-bottom: 20px;
-        font-size: 14px
-    }
-
-    .invoices-create-btn .invoices-preview-link {
-        margin-right: 0
-    }
-
-    .invoices-create-btn .btn {
-        display: none
-    }
-
-    .invoices-create-btn .btn {
-        display: none
-    }
-
-    .invoice-inner-head {
-        padding: 15px
-    }
-
-    .invoice-inner-date {
-        padding: 15px;
-        padding-bottom: 0
-    }
-
-    .invoice-inner-datepic {
-        padding-left: 15px;
-        padding-top: 10px;
-        padding-bottom: 15px
-    }
-
-    .field-box .btn {
-        min-width: 160px;
-        padding: 8px 0;
-        font-size: 14px
-    }
-
-    .invoice-total-footer h4 {
-        font-size: 14px
-    }
-
-    .service-upload {
-        width: 100%
-    }
-
-    .upload-sign {
-        width: 100%
-    }
-
-    .invoice-item-one .invoice-details {
-        text-align: left
-    }
-
-    .invoice-item-two .invoice-info2 {
-        text-align: left
-    }
-
-    .invoice-item-two .invoice-details {
-        text-align: left
-    }
-
-    .invoice-item-box {
-        width: 100%;
-        float: left
-    }
-
-    .invoice-issues-date {
-        padding-top: 10px;
-        padding-bottom: 0
-    }
-
-    .invoices-settings-btn .btn {
-        min-width: 140px;
-        padding: 8px 0;
-        font-size: 14px
-    }
-
-    .invoices-settings-btn-one {
-        margin-top: 0
-    }
-
-    .payment-details {
-        width: auto
-    }
-
-    .invoice-item .customer-text {
-        font-size: 16px
-    }
-
-    .invoice-setting-btn .btn {
-        min-width: 118px;
-        padding: 7px 0;
-        font-size: 14px
-    }
-
-    .invoice-faq {
-        margin-bottom: 20px
-    }
-
-    .language-drop,
-    .zoom-screen {
-        display: none
-    }
-
-    .activity-awards {
-        display: block;
-        margin-bottom: 20px
-    }
-
-    .award-list-outs {
-        margin: 10px 0
-    }
-
-    .sm-box p {
-        font-size: 16px
-    }
-
-    .sm-box h6 {
-        font-size: 20px
-    }
-
-    .social-boxs {
-        background: #fff;
-        width: 40px;
-        height: 40px
-    }
-
-    .lesson .btn-info {
-        padding: 2px 7px;
-        font-size: 13px
-    }
-
-    .circle-bar>div canvas {
-        width: 130px !important;
-        height: 130px !important
-    }
-
-    .circle-bar>div b {
-        font-size: 20px
-    }
-
-    .activity-feed .feed-item,
-    .teacher-date-list {
-        display: block !important
-    }
-
-    .teacher-date-list li:last-child {
-        margin-left: 0
-    }
-
-    .skip-group .skip-btn {
-        margin-bottom: 0
-    }
-
-    .skip-group {
-        margin-bottom: 10px
-    }
-
-    .profile-user-img img {
-        border: 4px solid #fff;
-        width: 90px;
-        object-fit: cover;
-        height: 90px;
-    }
-
-    .names-profiles h4 {
-        font-size: 16px
-    }
-
-    .names-profiles h5 {
-        font-size: 13px
-    }
-
-    .follow-group {
-        padding: 0 10px
-    }
-
-    .students-follows h4 {
-        font-size: 18px
-    }
-
-    .follow-btn-group {
-        margin: 10px 0
-    }
-
-    .follow-btn-group .btn-info {
-        min-width: 100px;
-        font-size: 14px;
-        padding: 5px 15px
-    }
-
-    .profile-edit-icon {
-        width: 26px;
-        height: 26px
-    }
-
-    .profile-edit-icon i {
-        font-size: 12px
-    }
-
-    .user-img .user-text {
-        display: none
-    }
-
-    .star-student.table-striped tbody tr td,
-    .star-student.table-striped tbody tr td a {
-        font-size: 14px
-    }
-
-    .social-boxs img {
-        max-width: 25px
-    }
-
-    .teacher-date-list li:nth-child(2) {
-        display: none
-    }
-
-    .activity-btns .btn-info {
-        min-width: 125px
-    }
-
-    .teacher-date-list {
-        margin: 10px 0
-    }
-
-    .chart-list-out span {
-        width: 5px;
-        height: 5px
-    }
-
-    .lesson-view-all a {
-        font-size: 12px
-    }
-
-    .chart-list-out li {
-        margin-right: 5px
-    }
-
-    .search-student-btn .btn-primary {
-        min-width: 120px;
-        padding: 6px 15px
-    }
-
-    .search-student-btn {
-        margin-bottom: 20px
-    }
-
-    .btn-outline-gray {
-        width: 30px;
-        height: 30px
-    }
-
-    .download-grp .btn-outline-primary {
-        font-size: 14px;
-        padding: 3px 9px
-    }
-
-    .download-grp .btn-primary {
-        padding: 2px 7px
-    }
-
-    .download-grp .btn-primary i {
-        font-size: 13px
-    }
+/*        display: none*/
+}
+
+.login-wrapper .loginbox {
+    max-width: 450px;
+    min-height: unset
+}
+
+.login-wrapper .loginbox .login-right {
+    float: none;
+    padding: 1.875rem;
+    width: 100%
+}
+
+.left-action {
+    text-align: center;
+    margin-bottom: 15px
+}
+
+.right-action {
+    text-align: center
+}
+
+.top-action-left .float-left {
+    float: none !important
+}
+
+.top-action-left .btn-group {
+    margin-bottom: 15px
+}
+
+.top-action-right {
+    text-align: center
+}
+
+.top-action-right a.btn.btn-white {
+    margin-bottom: 15px
+}
+
+.mail-sent-time {
+    float: left;
+    margin-top: 10px;
+    width: 100%
+}
+
+.profile-btn {
+    flex: 0 0 100%;
+    margin-top: 20px
+}
+
+.edit-link {
+    font-size: .875rem;
+    margin-top: 0
+}
+
+.product_price {
+    font-size: 1.5rem
+}
+
+.login-wrapper .loginbox .login-right h1 {
+    font-size: 22px
+}
+
+.error-box h1 {
+    font-size: 6em
+}
+
+.error-box .btn {
+    font-size: 15px;
+    min-width: 150px;
+    padding: 8px 20px
+}
+
+.user-menu {
+    padding-right: 0
+}
+
+.page-title {
+    font-size: 22px
+}
+
+.db-info h3 {
+    font-size: 22px
+}
+
+.app-listing li {
+    width: 100%
+}
+
+.invoices-tabs ul li {
+    margin-right: 0;
+    display: block;
+    margin-bottom: 14px
+}
+
+.invoices-tabs ul li a {
+    padding-bottom: 6px
+}
+
+.selectBox p {
+    font-size: 12px
+}
+
+.report-btn .btn {
+    font-size: 14px;
+    padding: 10px 0
+}
+
+.invoices-tabs ul li a {
+    font-size: 15px
+}
+
+.inovices-widget-header .inovices-amount {
+    font-size: 20px
+}
+
+.invoices-settings-btn .btn {
+    min-width: 140px;
+    padding: 8px 0;
+    font-size: 14px
+}
+
+.invoices-settings-btn {
+    margin-top: 20px;
+    justify-content: start
+}
+
+.invoices-grid-card .card-header,
+.card-middle,
+.invoices-grid-card .card-body,
+.invoices-grid-card .card-footer {
+    padding: 15px
+}
+
+.invoice-inner-head {
+    padding: 15px
+}
+
+.invoice-inner-datepic {
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 15px
+}
+
+.invoice-details-title {
+    font-size: 16px
+}
+
+.field-box .btn {
+    min-width: 160px;
+    padding: 8px 0;
+    font-size: 14px
+}
+
+.upload-sign .btn {
+    min-width: 140px;
+    padding: 8px 0;
+    font-size: 14px
+}
+
+.upload-sign {
+    width: 100%
+}
+
+.service-upload {
+    width: 100%
+}
+
+.add-links {
+    font-size: 14px
+}
+
+.invoice-total-footer h4 {
+    font-size: 14px
+}
+
+.invoice-add-table th {
+    font-size: 14px
+}
+
+.invoice-item .customer-text {
+    font-size: 16px
+}
+
+.invoice-add-table h4 {
+    font-size: 16px;
+    margin-bottom: 20px
+}
+
+.invoices-page-header .invoices-breadcrumb-item a {
+    font-size: 14px
+}
+
+.invoices-create-btn .invoices-preview-link {
+    margin-right: 0
+}
+
+.customer-text-one {
+    font-size: 16px
+}
+
+.invoices-create-btn .delete-invoice-btn {
+    display: none
+}
+
+.invoices-create-btn .save-invoice-btn {
+    display: none
+}
+
+.invoice-name {
+    font-size: 14px
+}
+
+.invoice-head h2 {
+    font-size: 16px
+}
+
+.form-header h4 {
+    font-size: 18px
+}
+
+.bank-details-btn .btn {
+    min-width: 120px;
+    padding: 7px 0;
+    font-size: 14px
+}
+
+.bank-details .modal-footer {
+    padding: 15px
+}
+
+.invoice-payment-box .payment-details p {
+    font-size: 14px
+}
+
+.invoice-head p {
+    font-size: 14px
+}
+
+.invoice-item-one .invoice-info {
+    text-align: left
+}
+
+.invoice-payment-box h4 {
+    font-size: 15px
+}
+
+.invoice-payment-box .payment-details {
+    margin-bottom: 20px;
+    width: 100%
+}
+
+.invoice-payment-box .payment-details p {
+    font-size: 14px
+}
+
+.invoice-payment-box h4 {
+    font-size: 15px
+}
+
+.invoice-item .invoice-details-two {
+    margin-bottom: 20px;
+    font-size: 14px
+}
+
+.invoice-terms p {
+    font-size: 14px
+}
+
+.nav-tabs.menu-tabs .nav-link {
+    display: block;
+    text-align: center
+}
+
+.nav-tabs.menu-tabs .nav-item {
+    display: block
+}
+
+.card .card-header .card-title {
+    font-size: 16px
+}
+
+.links-cont .form-group {
+    margin-bottom: 10px
+}
+
+.settings-form .trash {
+    margin-bottom: 10px
+}
+
+.settings-menu-links .nav {
+    display: block
+}
+
+.invoices-tabs ul li a {
+    padding-bottom: 6px
+}
+
+.app-listing li {
+    width: 100%
+}
+
+.report-btn .btn {
+    font-size: 14px;
+    padding: 10px 0
+}
+
+.invoices-tabs ul li a {
+    font-size: 15px
+}
+
+.invoices-tabs ul li {
+    margin-right: 0;
+    display: block;
+    margin-bottom: 14px
+}
+
+.invoices-settings-btn {
+    margin-top: 20px;
+    justify-content: start
+}
+
+.invoice-head h2 {
+    font-size: 16px
+}
+
+.invoice-head p {
+    font-size: 14px
+}
+
+.invoice-item-one .invoice-info {
+    text-align: left
+}
+
+.invoice-payment-box .payment-details {
+    margin-bottom: 20px
+}
+
+.invoice-item .invoice-details-two {
+    margin-bottom: 20px;
+    font-size: 14px
+}
+
+.invoices-create-btn .invoices-preview-link {
+    margin-right: 0
+}
+
+.invoices-create-btn .btn {
+    display: none
+}
+
+.invoices-create-btn .btn {
+    display: none
+}
+
+.invoice-inner-head {
+    padding: 15px
+}
+
+.invoice-inner-date {
+    padding: 15px;
+    padding-bottom: 0
+}
+
+.invoice-inner-datepic {
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 15px
+}
+
+.field-box .btn {
+    min-width: 160px;
+    padding: 8px 0;
+    font-size: 14px
+}
+
+.invoice-total-footer h4 {
+    font-size: 14px
+}
+
+.service-upload {
+    width: 100%
+}
+
+.upload-sign {
+    width: 100%
+}
+
+.invoice-item-one .invoice-details {
+    text-align: left
+}
+
+.invoice-item-two .invoice-info2 {
+    text-align: left
+}
+
+.invoice-item-two .invoice-details {
+    text-align: left
+}
+
+.invoice-item-box {
+    width: 100%;
+    float: left
+}
+
+.invoice-issues-date {
+    padding-top: 10px;
+    padding-bottom: 0
+}
+
+.invoices-settings-btn .btn {
+    min-width: 140px;
+    padding: 8px 0;
+    font-size: 14px
+}
+
+.invoices-settings-btn-one {
+    margin-top: 0
+}
+
+.payment-details {
+    width: auto
+}
+
+.invoice-item .customer-text {
+    font-size: 16px
+}
+
+.invoice-setting-btn .btn {
+    min-width: 118px;
+    padding: 7px 0;
+    font-size: 14px
+}
+
+.invoice-faq {
+    margin-bottom: 20px
+}
+
+.language-drop,
+.zoom-screen {
+    display: none
+}
+
+.activity-awards {
+    display: block;
+    margin-bottom: 20px
+}
+
+.award-list-outs {
+    margin: 10px 0
+}
+
+.sm-box p {
+    font-size: 16px
+}
+
+.sm-box h6 {
+    font-size: 20px
+}
+
+.social-boxs {
+    background: #fff;
+    width: 40px;
+    height: 40px
+}
+
+.lesson .btn-info {
+    padding: 2px 7px;
+    font-size: 13px
+}
+
+.circle-bar>div canvas {
+    width: 130px !important;
+    height: 130px !important
+}
+
+.circle-bar>div b {
+    font-size: 20px
+}
+
+.activity-feed .feed-item,
+.teacher-date-list {
+    display: block !important
+}
+
+.teacher-date-list li:last-child {
+    margin-left: 0
+}
+
+.skip-group .skip-btn {
+    margin-bottom: 0
+}
+
+.skip-group {
+    margin-bottom: 10px
+}
+
+.profile-user-img img {
+    border: 4px solid #fff;
+    width: 90px;
+    object-fit: cover;
+    height: 90px;
+}
+
+.names-profiles h4 {
+    font-size: 16px
+}
+
+.names-profiles h5 {
+    font-size: 13px
+}
+
+.follow-group {
+    padding: 0 10px
+}
+
+.students-follows h4 {
+    font-size: 18px
+}
+
+.follow-btn-group {
+    margin: 10px 0
+}
+
+.follow-btn-group .btn-info {
+    min-width: 100px;
+    font-size: 14px;
+    padding: 5px 15px
+}
+
+.profile-edit-icon {
+    width: 26px;
+    height: 26px
+}
+
+.profile-edit-icon i {
+    font-size: 12px
+}
+
+.user-img .user-text {
+    display: none
+}
+
+.star-student.table-striped tbody tr td,
+.star-student.table-striped tbody tr td a {
+    font-size: 14px
+}
+
+.social-boxs img {
+    max-width: 25px
+}
+
+.teacher-date-list li:nth-child(2) {
+    display: none
+}
+
+.activity-btns .btn-info {
+    min-width: 125px
+}
+
+.teacher-date-list {
+    margin: 10px 0
+}
+
+.chart-list-out span {
+    width: 5px;
+    height: 5px
+}
+
+.lesson-view-all a {
+    font-size: 12px
+}
+
+.chart-list-out li {
+    margin-right: 5px
+}
+
+.search-student-btn .btn-primary {
+    min-width: 120px;
+    padding: 6px 15px
+}
+
+.search-student-btn {
+    margin-bottom: 20px
+}
+
+.btn-outline-gray {
+    width: 30px;
+    height: 30px
+}
+
+.download-grp .btn-outline-primary {
+    font-size: 14px;
+    padding: 3px 9px
+}
+
+.download-grp .btn-primary {
+    padding: 2px 7px
+}
+
+.download-grp .btn-primary i {
+    font-size: 13px
+}
 }
 
 @media(max-width:575.98px) {
@@ -11164,6 +11165,14 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
 
     .page-header .breadcrumb {
         display: none
+    }
+    .sidebar {
+        margin-left: -80%;
+        width: 80%;
+        -webkit-transition: all .4s ease;
+        -moz-transition: all .4s ease;
+        transition: all .4s ease;
+        z-index: 1041
     }
 }
 

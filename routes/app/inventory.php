@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Lab\LabController;
 use App\Http\Controllers\Inventory\EquipmentController;
 use App\Http\Controllers\Inventory\EquipmentCategoryController;
 use App\Http\Controllers\Inventory\EquipmentLocationController;
@@ -80,16 +79,16 @@ Route::middleware(['auth'])->group(function () {
         });
 
         // Lab schedule routes
-        Route::prefix('lab-schedule')->name('admin.jadwal.')->group(function () {
-            Route::get('/', [LabController::class, 'index'])->name('lab');
-        });
+        // Route::prefix('lab-schedule')->name('admin.jadwal.')->group(function () {
+        //     Route::get('/', [LabController::class, 'index'])->name('lab');
+        // });
 
     });
 
     // User routes (for all authenticated users)
-    Route::prefix('item')->name('item.')->group(function () {
-        Route::get('/', [EquipmentController::class, 'userIndex'])->name('index');
-        Route::get('/{id}', [EquipmentController::class, 'userShow'])->name('show');
-    });
+    // Route::prefix('item')->name('item.')->group(function () {
+    //     Route::get('/', [EquipmentController::class, 'userIndex'])->name('index');
+    //     Route::get('/{id}', [EquipmentController::class, 'userShow'])->name('show');
+    // });
 
 });

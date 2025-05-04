@@ -1,12 +1,13 @@
 @extends('layouts.app-layout')
 @section('content')
-    <div class="row">
-        <div class="col-12 col-md-7 col-lg-8 ">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
             <div class="card comman-shadow">
                 <div class="card-body">
-                    <h4 class="text-center text-primary p-0  mb-4">{{ $labData['name'] }}</h4>
-                    <form id="addBorrowLab" enctype="multipart/form-data"
-                        action="{{ route('borrowing.lab.store', $labData['id']) }}" method="POST">
+                    <h4 class="text-center text-primary p-0 mb-4">Form Pengajuan Peminjaman Ruangan</h4>
+                    <form id="addBorrowLab" enctype="multipart/form-data" action="{{ route('borrowing.lab.store') }}"
+                        method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group local-forms">
@@ -45,6 +46,86 @@
                                 </div>
                             </div>
                             <div class="col-12">
+                                <div class="card border">
+                                    <div class="card-body p-0 px-2 pt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="enable_recurring"
+                                                name="is_recurring" value="1">
+                                            <label class="form-check-label fw-bold" for="enable_recurring">
+                                                Jadikan Peminjaman Berulang
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body recurring-options" style="display: none;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="recurrence_type">Jenis Perulangan</label>
+                                                    <select name="recurrence_type" id="recurrence_type" class="form-select">
+                                                        <option value="daily">Harian</option>
+                                                        <option value="weekly" selected>Mingguan</option>
+                                                        <option value="monthly">Bulanan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="recurrence_interval">Interval</label>
+                                                    <select name="recurrence_interval" id="recurrence_interval"
+                                                        class="form-select">
+                                                        @for ($i = 1; $i <= 12; $i++)
+                                                            <option value="{{ $i }}">{{ $i }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <label>Akhiri Perulangan</label>
+                                                <div class="form-check mt-2">
+                                                    <input class="form-check-input" type="radio" name="ends_option"
+                                                        id="ends_never" value="never" checked>
+                                                    <label class="form-check-label" for="ends_never">
+                                                        Tidak pernah berakhir
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-2">
+                                                    <input class="form-check-input" type="radio" name="ends_option"
+                                                        id="ends_after" value="after">
+                                                    <label class="form-check-label" for="ends_after">
+                                                        Setelah
+                                                        <input type="number" name="recurrence_count"
+                                                            id="recurrence_count"
+                                                            class="form-control form-control-sm d-inline-block mx-2"
+                                                            style="width: 70px;" min="1" max="52"
+                                                            value="12" disabled>
+                                                        kali
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mt-2">
+                                                    <input class="form-check-input" type="radio" name="ends_option"
+                                                        id="ends_on" value="on">
+                                                    <label class="form-check-label" for="ends_on">
+                                                        Pada tanggal
+                                                        <input type="date" name="recurrence_ends_at"
+                                                            id="recurrence_ends_at"
+                                                            class="form-control form-control-sm d-inline-block mx-2"
+                                                            style="width: 150px;" disabled>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert alert-info mt-3">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            <span id="recurrence_summary">Peminjaman akan berulang setiap minggu</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="form-group local-forms">
                                     <label class="text-dark" for="notes">Catatan</label>
                                     <textarea name="notes" id="notes" rows="5" class="form-control"
@@ -57,29 +138,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-5 col-lg-4 ">
-            <div class="card comman-shadow">
-                <div class="card-body">
-                    <h4 class="pb-2 text-center text-primary p-0 m-0">Info Lab</h4>
-
-                    {{-- <p class="p-0 mx-0 mt-3 text-muted text-center">Data Ruangan<p> --}}
-                    <div class="lab-content d-flex flex-column gap-3">
-                        <div class="bg-secondary rounded " style="height: 200px;">
-                            <img class="img-fluid h-100 rounded w-100" src="{{ $labData['thumbnail'] }}"
-                                alt="Thumbnail Image | {{ $labData['name'] }}" style="object-fit: cover">
-                        </div>
-
-                        <h5 class="p-0 m-0">{{ $labData['name'] }}</h5>
-                        {{-- <div class="d-flex gap-2">
-                            <a class="d-block badge bg-primary-light text-uppercase">{{ $labData['location'] }}</a>
-                            <a class="d-block badge badge-soft-primary text-uppercase">{{ $labData['capacity'] }}
-                                Orang</a>
-                        </div> --}}
-                        <div class="text-muted">{{ $labData['facilities'] }}</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -223,6 +281,142 @@
                     }
                 }
             });
+
+            // Check availability
+            $('#date, #start_time, #end_time').change(function() {
+                const date = $('#date').val();
+                const startTime = $('#start_time').val();
+                const endTime = $('#end_time').val();
+
+                if (date && startTime && endTime && startTime < endTime) {
+                    // Show loading indicator
+                    const submitBtn = $('#btn-submit');
+                    submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Checking...');
+                    submitBtn.prop('disabled', true);
+
+                    // Check availability
+                    $.ajax({
+                        url: "{{ route('borrowing.lab.check') }}",
+                        type: 'POST',
+                        data: {
+                            borrow_date: date,
+                            start_time: startTime,
+                            end_time: endTime,
+                            _token: $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.available) {
+                                // Time slot available
+                                submitBtn.html('Kirim');
+                                submitBtn.prop('disabled', false);
+                            } else {
+                                // Time slot not available
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Waktu Tidak Tersedia',
+                                    html: `Waktu yang Anda pilih sudah dipesan oleh <strong>${response.conflict.user}</strong><br>untuk keperluan: <strong>${response.conflict.event}</strong><br>pada waktu: <strong>${response.conflict.time}</strong>`,
+                                    confirmButtonText: 'Pilih Waktu Lain'
+                                });
+                                $('#end_time').val('');
+                                submitBtn.html('Kirim');
+                                submitBtn.prop('disabled', true);
+                            }
+                        },
+                        error: function() {
+                            // Error checking availability
+                            submitBtn.html('Kirim');
+                            submitBtn.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            // Toggle recurring options visibility
+            $('#enable_recurring').change(function() {
+                if ($(this).is(':checked')) {
+                    $('.recurring-options').slideDown();
+                } else {
+                    $('.recurring-options').slideUp();
+                }
+            });
+
+            // Handle end options
+            $('input[name="ends_option"]').change(function() {
+                const endOption = $(this).val();
+
+                // Reset and disable all end option inputs
+                $('#recurrence_count, #recurrence_ends_at').prop('disabled', true);
+
+                // Enable the selected end option input
+                if (endOption === 'after') {
+                    $('#recurrence_count').prop('disabled', false);
+                } else if (endOption === 'on') {
+                    $('#recurrence_ends_at').prop('disabled', false);
+                }
+
+                updateRecurrenceSummary();
+            });
+
+            // Update summary when options change
+            $('#recurrence_type, #recurrence_interval, #recurrence_count, #recurrence_ends_at').change(function() {
+                updateRecurrenceSummary();
+            });
+
+            // Initialize picker for recurrence end date
+            if ($('#recurrence_ends_at').length) {
+                const today = new Date();
+                const oneYearLater = new Date();
+                oneYearLater.setFullYear(today.getFullYear() + 1);
+
+                $('#recurrence_ends_at').val(formatDate(oneYearLater));
+            }
+
+            function updateRecurrenceSummary() {
+                const type = $('#recurrence_type').val();
+                const interval = $('#recurrence_interval').val();
+                const endOption = $('input[name="ends_option"]:checked').val();
+
+                let typeText = 'minggu';
+                if (type === 'daily') typeText = 'hari';
+                if (type === 'monthly') typeText = 'bulan';
+
+                let summary = `Peminjaman akan berulang setiap `;
+                if (interval > 1) {
+                    summary += `${interval} ${typeText}`;
+                } else {
+                    summary += typeText;
+                }
+
+                if (endOption === 'after') {
+                    const count = $('#recurrence_count').val();
+                    summary += ` sampai ${count} kali jadwal`;
+                } else if (endOption === 'on') {
+                    const endDate = $('#recurrence_ends_at').val();
+                    summary += ` sampai tanggal ${formatDateDisplay(endDate)}`;
+                }
+
+                $('#recurrence_summary').text(summary);
+            }
+
+            function formatDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            function formatDateDisplay(dateString) {
+                const date = new Date(dateString);
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                return date.toLocaleDateString('id-ID', options);
+            }
+
+            // Call once to initialize
+            updateRecurrenceSummary();
         });
     </script>
 @endpush

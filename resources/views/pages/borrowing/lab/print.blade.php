@@ -172,11 +172,11 @@
 </head>
 
 <body>
-    {{-- @if (isset($watermarkBase64))
+    @if (isset($watermarkBase64))
         <div class="watermark">
             <img src="{{ $watermarkBase64 }}" alt="Watermark">
         </div>
-    @endif --}}
+    @endif
 
     <div class="header">
         @if (isset($logoBase64))
@@ -192,7 +192,7 @@
 
     <div class="content">
         <div class="section">
-            <p>Yang bertanda tangan di bawah ini, Kepala Laboratorium {{ $borrowing->lab->name }}
+            <p>Yang bertanda tangan di bawah ini, Kepala Laboratorium {{ settings('lab_name') }}
                 {{ settings('school_name') }} menerangkan bahwa:</p>
         </div>
 
@@ -227,7 +227,7 @@
                 <tr>
                     <td>Laboratorium</td>
                     <td>:</td>
-                    <td>{{ $borrowing->lab->name }}</td>
+                    <td>{{ settings('lab_name') }}</td>
                 </tr>
                 <tr>
                     <td>Tanggal Peminjaman</td>
@@ -246,6 +246,11 @@
                     <td>Keperluan Kegiatan</td>
                     <td>:</td>
                     <td>{{ $borrowing->event }}</td>
+                </tr>
+                <tr>
+                    <td>Kode Peminjaman</td>
+                    <td>:</td>
+                    <td><strong>{{ $borrowing->borrow_code }}</strong></td>
                 </tr>
             </table>
         </div>
@@ -281,8 +286,7 @@
 
     <div class="footer">
         <p>Dokumen ini diterbitkan pada {{ \Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM Y') }}</p>
-        <p>No. Registrasi: <span
-                class="reg-number">{{ $borrowing->id }}/LAB/{{ \Carbon\Carbon::now()->format('Y') }}</span></p>
+        <p>No. Registrasi: <span class="reg-number">{{ $borrowing->borrow_code }}</span></p>
         <p style="font-style: italic; font-size: 10px; margin-top: 15px;">Dokumen ini sah tanpa tanda tangan dalam
             bentuk elektronik dan berstempel basah.</p>
         <p>{{ settings('print_footer_text') }}</p>

@@ -12,7 +12,7 @@ class LabStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -20,7 +20,7 @@ class LabStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'event' => 'required|string|max:255',
             'borrow_date' => 'required|date_format:d-m-Y|after_or_equal:today',
             'start_time' => [
@@ -39,7 +39,21 @@ class LabStoreRequest extends FormRequest
                 },
             ],
             'notes' => 'nullable|string',
+            'is_recurring' => 'boolean',
         ];
+
+        // Add recurring booking rules if is_recurring is true
+        if ($this->input('is_recurring')) {
+            $rules = array_merge($rules, [
+                'recurrence_type' => 'required|in:daily,weekly,monthly',
+                'recurrence_interval' => 'required|integer|min:1|max:12',
+                'ends_option' => 'required|in:never,after,on',
+                'recurrence_count' => 'required_if:ends_option,after|nullable|integer|min:1|max:52',
+                'recurrence_ends_at' => 'required_if:ends_option,on|nullable|date|after:borrow_date',
+            ]);
+        }
+
+        return $rules;
     }
 
     /**
@@ -58,9 +72,23 @@ class LabStoreRequest extends FormRequest
             'end_time.required' => 'Silakan pilih waktu selesai.',
             'end_time.date_format' => 'Format waktu selesai harus dalam bentuk jam:menit (HH:MM).',
             'end_time.after' => 'Waktu selesai harus lebih dari waktu mulai.',
+            'recurrence_type.required' => 'Silakan pilih tipe pengulangan.',
+            'recurrence_type.in' => 'Tipe pengulangan tidak valid.',
+            'recurrence_interval.required' => 'Silakan isi interval pengulangan.',
+            'recurrence_interval.integer' => 'Interval pengulangan harus berupa angka.',
+            'recurrence_interval.min' => 'Interval pengulangan minimal 1.',
+            'recurrence_interval.max' => 'Interval pengulangan maksimal 12.',
+            'ends_option.required' => 'Silakan pilih opsi akhir pengulangan.',
+            'ends_option.in' => 'Opsi akhir pengulangan tidak valid.',
+            'recurrence_count.required_if' => 'Silakan isi jumlah pengulangan.',
+            'recurrence_count.integer' => 'Jumlah pengulangan harus berupa angka.',
+            'recurrence_count.min' => 'Jumlah pengulangan minimal 1.',
+            'recurrence_count.max' => 'Jumlah pengulangan maksimal 52.',
+            'recurrence_ends_at.required_if' => 'Silakan pilih tanggal akhir pengulangan.',
+            'recurrence_ends_at.date' => 'Format tanggal akhir pengulangan tidak valid.',
+            'recurrence_ends_at.after' => 'Tanggal akhir pengulangan harus setelah tanggal peminjaman.',
         ];
     }
-
 
     private function validateTimeNotInPast(string $field, string $time, callable $fail): void
     {

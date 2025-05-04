@@ -66,8 +66,10 @@ class EquipmentService
         try {
             DB::beginTransaction();
 
+            $fileId = null;
             if ($data->image) {
                 $file = $this->fileService->uploadFile($data->image);
+                $fileId = $file->id;
             }
 
             $equipment = $this->repository->create([
@@ -78,7 +80,7 @@ class EquipmentService
                 'category_id' => $data->category_id,
                 'location_id' => $data->location_id,
                 'description' => $data->description,
-                'file_id' => $file->id ?? null,
+                'file_id' => $fileId,
             ]);
 
             DB::commit();
@@ -94,8 +96,14 @@ class EquipmentService
         try {
             DB::beginTransaction();
 
+            $fileId = $equipment->file_id;
+
             if ($data->image) {
+                // Upload new file first
                 $file = $this->fileService->uploadFile($data->image);
+                $fileId = $file->id;
+
+                // Delete old file after successful upload
                 if ($equipment->file_id) {
                     $this->fileService->deleteFileById($equipment->file_id);
                 }
@@ -103,13 +111,13 @@ class EquipmentService
 
             $equipment = $this->repository->update($equipment, [
                 'name' => $data->name,
-                'code' => $data->code ?: $this->codeGenerator->generateEquipmentCode($data->category_id),
+                'code' => $equipment->code ?: $this->codeGenerator->generateEquipmentCode($data->category_id),
                 'stock' => $data->stock,
                 'condition' => $data->condition,
                 'category_id' => $data->category_id,
                 'location_id' => $data->location_id,
                 'description' => $data->description,
-                'file_id' => $file->id ?? $equipment->file_id,
+                'file_id' => $fileId,
             ]);
 
             DB::commit();

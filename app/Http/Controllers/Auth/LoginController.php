@@ -56,9 +56,9 @@ class LoginController extends Controller
      * Handle login request
      *
      * @param LoginRequest $request
-     * @return JsonResponse
+     * @return JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function doLogin(LoginRequest $request): JsonResponse
+    public function doLogin(LoginRequest $request)
     {
         // Validate request with stricter rules
         $credentials = $request->validated();  // Get the IP address and throttle key
@@ -76,10 +76,16 @@ class LoginController extends Controller
                 'available_in' => $seconds,
             ]);
 
-            return response()->json([
-                'success' => false,
-                'message' => __('auth.throttle', ['seconds' => $seconds]),
-            ], 429);
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __('auth.throttle', ['seconds' => $seconds]),
+                ], 429);
+            }
+
+            return redirect()->back()
+                ->withInput($request->except('password'))
+                ->withErrors(['username' => __('auth.throttle', ['seconds' => $seconds])]);
         }
 
         // Parse device info for security logs
@@ -94,13 +100,25 @@ class LoginController extends Controller
         // Increment the rate limiter attempt counter if login failed
         if (!$result['success']) {
             RateLimiter::increment($throttleKey, self::LOCKOUT_TIME);
-            return $this->sendFailedResponse($request, $result['message'], 401);
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return $this->sendFailedResponse($request, $result['message'], 401);
+            }
+
+            return redirect()->back()
+                ->withInput($request->except('password'))
+                ->withErrors(['username' => $result['message']]);
         }
 
-        // On success, regenerate the session and return a 200 response
+        // On success, regenerate the session
         $request->session()->regenerate();
 
-        return $this->sendSuccessResponse($request, $result['message'], $result);
+        if ($request->ajax() || $request->wantsJson()) {
+            return $this->sendSuccessResponse($request, $result['message'], $result);
+        }
+
+        // For regular form submission, redirect to dashboard or intended URL
+        return redirect()->intended(route('dashboard'));
     }
 
     /**

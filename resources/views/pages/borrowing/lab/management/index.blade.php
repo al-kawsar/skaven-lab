@@ -97,7 +97,7 @@
                 }
             },
             ajax: {
-                url: "{{ route('borrowing.lab.ajax') }}",
+                url: "{{ route('borrowing.lab.management.data') }}",
                 type: 'GET',
                 dataType: 'json',
                 dataSrc: 'data'
@@ -559,5 +559,6 @@
     `;
             return html;
         }
+        $('[title]').tooltip();
     </script>
 @endpush

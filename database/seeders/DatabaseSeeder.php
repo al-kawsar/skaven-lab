@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             FileSeeder::class,
             UserSeeder::class,
-            LabSeeder::class,
             SettingSeeder::class,
             EquipmentSeeder::class,
         ]);

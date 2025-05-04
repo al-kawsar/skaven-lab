@@ -208,7 +208,7 @@
                     .refreshing {
                         animation: spin 1s linear infinite;
                     }
-                `)
+        `)
                 .appendTo('head');
 
             // Sync color picker with text input
@@ -235,14 +235,19 @@
                 serverSide: false,
                 processing: true,
                 columns: [{
-                        data: 'number'
+                        data: null,
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
                     },
                     {
                         data: 'name',
                         render: function(data, type, row) {
                             return `<div class="d-flex align-items-center">
                                     <strong>${data}</strong>
-                                </div>`;
+                    </div>`;
                         }
                     },
                     {
@@ -267,7 +272,7 @@
                     {
                         data: 'equipment_count',
                         render: function(data) {
-                            return `<span class="badge bg-info-light rounded-pill py-2 px-3">${data} barang</span>`;
+                            return `<span class="badge badge-soft-dark rounded-pill py-2 px-3">${data} barang</span>`;
                         }
                     },
                     {
@@ -286,7 +291,7 @@
                                 <button class="btn btn-sm bg-success-light btn-delete" data-id="${row.id}" ${isProcessing ? 'disabled' : ''} title="Hapus Kategori">
                                     <i class="feather-trash"></i>
                                 </button>
-                            </div>`;
+                        </div>`;
                         }
                     }
                 ],

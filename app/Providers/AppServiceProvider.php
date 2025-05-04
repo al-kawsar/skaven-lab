@@ -9,6 +9,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,13 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('image-uploader', \App\View\Components\ImageUploader::class);
         Blade::component('image-preview', \App\View\Components\ImagePreview::class);
 
+        // Force HTTPS dalam produksi atau jika diakses melalui Ngrok
+        if (
+            env('APP_ENV') !== 'local' ||
+            strpos(request()->server('HTTP_HOST') ?? '', 'ngrok') !== false
+        ) {
+            URL::forceScheme('https');
+        }
     }
 
 }

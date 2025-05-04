@@ -25,7 +25,7 @@
                     <div class="db-widgets mt-3 d-flex justify-content-between align-items-center">
                         <div class="db-info">
                             <h6 class="p-0 m-0 text-muted fw-bold fs-6">Total Barang</h6>
-                            <p class="mx-0 my-1 p-0 fw-bold fs-5">{{ $data['totalLabLoan'] }}</p>
+                            <p class="mx-0 my-1 p-0 fw-bold fs-5">{{ $data['totalItemLoan'] }}</p>
                             <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Total barang yang dimiliki</h6>
                         </div>
                     </div>
@@ -52,12 +52,12 @@
             <div class="card bg-comman w-100">
                 <div class="card-body">
                     <div class="db-icon">
-                        <i class="fa fa-exchange-alt text-success"></i>
+                        <i class="fa fa-calendar-check text-success"></i>
                     </div>
                     <div class="db-widgets mt-3 d-flex justify-content-between align-items-center">
                         <div class="db-info">
-                            <h6 class="p-0 m-0 text-muted fw-bold fs-6">Total Peminjaman Lab</h6>
-                            <p class="mx-0 my-1 p-0 fw-bold fs-5" id="totalData">{{ $data['totalBorrowingLab'] ?? 0 }}</p>
+                            <h6 class="p-0 m-0 text-muted fw-bold fs-6">Total Peminjaman Ruangan</h6>
+                            <p class="mx-0 my-1 p-0 fw-bold fs-5" id="totalData">{{ $data['totalRoomBookings'] ?? 0 }}</p>
                             <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Total peminjaman dari awal</h6>
                         </div>
                     </div>
@@ -106,8 +106,8 @@
                     <div class="db-widgets mt-3 d-flex justify-content-between align-items-center">
                         <div class="db-info">
                             <h6 class="p-0 m-0 text-muted fw-bold fs-6">Total Peminjaman Barang</h6>
-                            <p class="mx-0 my-1 p-0 fw-bold fs-5" id="totalData">{{ $data['totalItemLoan'] ?? 0 }}</p>
-                            <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Total pengguna saat ini</h6>
+                            <p class="mx-0 my-1 p-0 fw-bold fs-5" id="totalData">{{ $data['totalEquipmentLoan'] ?? 0 }}</p>
+                            <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Total peminjaman barang</h6>
                         </div>
                     </div>
                 </div>
@@ -124,6 +124,14 @@
                     <h5 class="card-title">Aksi Cepat</h5>
                 </div>
                 <div class="card-body">
+                    <div class="list-group">
+                        <a href="{{ route('borrowing.lab.index') }}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-calendar-plus me-2 text-primary"></i> Ajukan Peminjaman Ruangan
+                        </a>
+                        <a href="{{ route('borrowing.lab.admin.index') }}" class="list-group-item list-group-item-action">
+                            <i class="fas fa-tasks me-2 text-success"></i> Kelola Peminjaman Ruangan
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,6 +143,16 @@
                     <h5 class="card-title">Notifikasi Penting</h5>
                 </div>
                 <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span class="fw-bold">Pemeliharaan:</span> Beberapa ruangan akan ditutup untuk pemeliharaan pada
+                        akhir pekan.
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span class="fw-bold">Pengumuman:</span> Jadwal peminjaman baru untuk semester depan telah
+                        tersedia.
+                    </div>
                 </div>
             </div>
         </div>

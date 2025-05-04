@@ -24,12 +24,11 @@ return new class extends Migration {
             // Foreign key ke tabel lokasi
             $table->foreignId('location_id')->nullable()->constrained('equipment_locations')->onDelete('set null');
 
-            // Foreign key ke tabel files (jika file menggunakan uuid)
             $table->unsignedBigInteger('file_id')->nullable();
             $table->foreign('file_id')
                 ->references('id')
                 ->on('files')
-                ->onDelete('set null');
+                ->nullOnDelete();
 
             $table->timestamps();
         });

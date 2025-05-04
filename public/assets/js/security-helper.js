@@ -24,6 +24,9 @@
 
             // Check if site is using HTTPS
             SecurityHelper.checkHttpsUsage();
+
+            // Check and fix mixed content
+            SecurityHelper.checkAndFixMixedContent();
         }
 
         /**
@@ -281,6 +284,20 @@
                 colorDepth: window.screen.colorDepth,
                 devicePixelRatio: window.devicePixelRatio || 1,
             };
+        }
+
+        /**
+         * Check and fix mixed content
+         */
+        static checkAndFixMixedContent() {
+            // Force all AJAX requests to use https if the page is loaded over https
+            if (window.location.protocol === "https:" && window.jQuery) {
+                $.ajaxPrefilter(function (options) {
+                    if (options.url.startsWith("http:")) {
+                        options.url = options.url.replace("http:", "https:");
+                    }
+                });
+            }
         }
     }
 

@@ -11,12 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('lab_borrowings', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('borrow_code')->nullable()->unique();
-            $table->string('letter_code')->nullable()->unique();
-            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignUuid('lab_id')->constrained('labs', 'id')->onDelete('cascade');
-            $table->string('event');
+            $table->uuid('id')->primary(); // ID unik sebagai primary key
+            $table->string('borrow_code')->nullable()->unique(); // Kode peminjaman yang unik
+            $table->string('letter_code')->nullable()->unique(); // Kode surat peminjaman yang unik
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade'); // ID pengguna yang meminjam, terhubung ke tabel users
+            $table->string('event'); // Nama acara atau kegiatan
             $table->enum('status', [
                 'menunggu',      // Menunggu persetujuan admin
                 'disetujui',     // Disetujui oleh admin
@@ -25,12 +24,19 @@ return new class extends Migration {
                 'selesai',       // Peminjaman selesai
                 'dibatalkan',    // Dibatalkan oleh peminjam
                 'kadaluarsa'     // Melewati batas waktu peminjaman
-            ])->default('menunggu');
-            $table->date('borrow_date');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->text('notes')->nullable();
-            $table->timestamps();
+            ])->default('menunggu'); // Status peminjaman dengan nilai default 'menunggu'
+            $table->boolean('is_recurring')->default(false); // Apakah peminjaman berulang atau tidak
+            $table->string('recurrence_type')->nullable(); // Tipe pengulangan (harian, mingguan, bulanan)
+            $table->integer('recurrence_interval')->nullable(); // Interval pengulangan (setiap berapa hari/minggu/bulan)
+            $table->date('recurrence_ends_at')->nullable(); // Tanggal berakhirnya pengulangan
+            $table->integer('recurrence_count')->nullable(); // Jumlah pengulangan
+            $table->uuid('parent_booking_id')->nullable(); // ID peminjaman induk untuk peminjaman berulang
+            $table->foreign('parent_booking_id')->references('id')->on('lab_borrowings')->onDelete('cascade'); // Relasi ke peminjaman induk
+            $table->date('borrow_date'); // Tanggal peminjaman
+            $table->time('start_time'); // Waktu mulai peminjaman
+            $table->time('end_time'); // Waktu selesai peminjaman
+            $table->text('notes')->nullable(); // Catatan tambahan
+            $table->timestamps(); // Waktu pembuatan dan pembaruan record
         });
     }
 

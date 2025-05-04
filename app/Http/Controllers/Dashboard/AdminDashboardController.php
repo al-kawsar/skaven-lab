@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\LabBorrowing;
-use App\Models\Lab;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,10 +41,10 @@ class AdminDashboardController extends Controller
             ]);
 
             $data = [
-                'totalLabLoan' => Lab::count(),
+                'totalItemLoan' => 0,
                 'totalUser' => User::count(),
-                'totalBorrowingLab' => LabBorrowing::count(),
-                'totalItemLoan' => 4,
+                'totalRoomBookings' => LabBorrowing::count(),
+                'totalEquipmentLoan' => 4,
                 'totalStudent' => 3000,
                 'totalTeacher' => 100,
                 'lowStockItems' => $lowStockItems,
@@ -83,7 +82,7 @@ class AdminDashboardController extends Controller
                 'chartData' => [
                     'labels' => ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'],
                     'itemLoans' => [5, 8, 12, 7, 10],
-                    'labLoans' => [3, 5, 4, 6, 4]
+                    'roomBookings' => [3, 5, 4, 6, 4]
                 ],
             ];
 
@@ -95,10 +94,10 @@ class AdminDashboardController extends Controller
             // Return a basic view with error message
             return view('pages.dashboard.admin', [
                 'data' => [
-                    'totalLabLoan' => 0,
-                    'totalUser' => 0,
-                    'totalBorrowingLab' => 0,
                     'totalItemLoan' => 0,
+                    'totalUser' => 0,
+                    'totalRoomBookings' => 0,
+                    'totalEquipmentLoan' => 0,
                     'totalStudent' => 0,
                     'totalTeacher' => 0,
                 ],

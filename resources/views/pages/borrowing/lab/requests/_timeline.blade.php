@@ -171,35 +171,59 @@
 </div>
 
 <div class="timeline">
-    @forelse($borrow->histories()->orderBy('created_at', 'desc')->get() as $history)
+    @foreach ($borrow->histories()->orderBy('created_at', 'asc')->get() as $history)
         <div class="timeline-item">
-            <div class="timeline-marker {{ getStatusColorClass($history->status) }}">
-                <i class="fas fa-{{ getStatusIcon($history->status) }}"></i>
+            <div
+                class="timeline-point {{ $history->status === 'ditolak'
+                    ? 'bg-danger'
+                    : ($history->status === 'disetujui'
+                        ? 'bg-success'
+                        : ($history->status === 'selesai'
+                            ? 'bg-secondary'
+                            : 'bg-primary')) }}">
+                @if ($history->status === 'ditolak')
+                    <i class="fas fa-times text-white"></i>
+                @elseif ($history->status === 'disetujui')
+                    <i class="fas fa-check text-white"></i>
+                @elseif ($history->status === 'selesai')
+                    <i class="fas fa-check-double text-white"></i>
+                @elseif ($history->status === 'dibatalkan')
+                    <i class="fas fa-ban text-white"></i>
+                @elseif ($history->status === 'menunggu')
+                    <i class="fas fa-clock text-white"></i>
+                @else
+                    <i class="fas fa-circle text-white"></i>
+                @endif
             </div>
             <div class="timeline-content">
-                <h3 class="timeline-title">
-                    {{ ucfirst($history->status) }}
-                    <span
-                        class="badge {{ getBadgeClass($history->status) }} ms-2">{{ ucfirst($history->status) }}</span>
-                </h3>
-                <p class="timeline-subtitle">
-                    {{ $history->created_at->locale('id')->isoFormat('dddd, D MMMM YYYY, HH:mm:ss') }}
-                    <span class="ms-2 text-muted">({{ $history->created_at->diffForHumans() }})</span>
-                </p>
-                <div class="timeline-info">
-                    <p class="mb-1">{{ $history->notes }}</p>
-                    <p class="mb-0 small text-muted">
-                        Oleh: {{ $history->user->name ?? 'Sistem' }}
-                    </p>
-                </div>
+                <h6 class="mb-1">
+                    @if ($history->status === 'menunggu')
+                        Menunggu Persetujuan
+                    @elseif ($history->status === 'disetujui')
+                        Disetujui
+                    @elseif ($history->status === 'ditolak')
+                        Ditolak
+                    @elseif ($history->status === 'selesai')
+                        Selesai
+                    @elseif ($history->status === 'dibatalkan')
+                        Dibatalkan
+                    @elseif ($history->status === 'kadaluarsa')
+                        Kadaluarsa
+                    @else
+                        {{ ucfirst($history->status) }}
+                    @endif
+                </h6>
+                <p class="mb-0 text-muted">
+                    {{ $history->created_at->locale('id')->isoFormat('dddd, D MMMM YYYY HH:mm:ss') }}</p>
+                @if ($history->notes)
+                    <div class="mt-2 p-2 bg-light rounded">
+                        {{ $history->notes }}
+                    </div>
+                @endif
+                <small class="text-muted">Oleh: {{ $history->user ? $history->user->name : 'Sistem' }}</small>
             </div>
         </div>
-    @empty
-        <div class="text-center py-3">
-            <i class="fas fa-exclamation-circle text-muted me-2"></i>
-            Belum ada riwayat status untuk peminjaman ini
-        </div>
-    @endforelse
+    @endforeach
 </div>
 
 @php

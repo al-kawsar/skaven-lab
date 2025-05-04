@@ -68,13 +68,13 @@
             <div class="card bg-comman w-100">
                 <div class="card-body">
                     <div class="db-icon">
-                        <i class="fas fa-building text-info"></i>
+                        <i class="fas fa-door-open text-info"></i>
                     </div>
                     <div class="db-widgets mt-3 d-flex justify-content-between align-items-center">
                         <div class="db-info">
-                            <h6 class="p-0 m-0 text-muted fw-bold fs-6">Lab Tersedia</h6>
-                            <p class="mx-0 my-1 p-0 fw-bold fs-5" id="totalLab">{{ $data['totalLab'] ?? 0 }}</p>
-                            <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Lab tersedia saat ini</h6>
+                            <h6 class="p-0 m-0 text-muted fw-bold fs-6">Ruangan Tersedia</h6>
+                            <p class="mx-0 my-1 p-0 fw-bold fs-5" id="totalRooms">{{ $data['totalPending'] ?? 0 }}</p>
+                            <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Peminjaman menunggu persetujuan</h6>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                         <div class="db-info">
                             <h6 class="p-0 m-0 text-muted fw-bold fs-6">Total Peminjaman</h6>
                             <p class="mx-0 my-1 p-0 fw-bold fs-5" id="totalBorrow">{{ $data['totalBorrow'] ?? 0 }}</p>
-                            <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Total peminjaman</h6>
+                            <h6 class="m-0 p-0 text-muted" style="font-size: 14px">Total peminjaman ruangan</h6>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
             <div class="card bg-comman w-100">
                 <div class="card-body">
                     <div class="db-icon">
-                        <i class="fa fa-calculator text-success"></i>
+                        <i class="fa fa-check-circle text-success"></i>
                     </div>
                     <div class="db-widgets mt-3 d-flex justify-content-between align-items-center">
                         <div class="db-info">
@@ -116,7 +116,7 @@
             <div class="card bg-comman w-100">
                 <div class="card-body">
                     <div class="db-icon">
-                        <i class="fas fa-signal text-danger"></i>
+                        <i class="fas fa-times-circle text-danger"></i>
                     </div>
                     <div class="db-widgets mt-3 d-flex justify-content-between align-items-center">
                         <div class="db-info">
@@ -289,7 +289,7 @@
                                 <img src="/assets/img/icons/award-icon-01.svg" alt="Award">
                             </div>
                             <div class="award-list-outs">
-                                <h4>1st place in "Chess”</h4>
+                                <h4>1st place in "Chess"</h4>
                                 <h5>John Doe won 1st place in "Chess"</h5>
                             </div>
                             <div class="award-time-list">

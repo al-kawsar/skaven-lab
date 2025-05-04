@@ -11,10 +11,7 @@ class LabBorrowingHistoryController extends Controller
     public function index(Request $request)
     {
         // Hanya admin yang bisa melihat
-        if (!auth()->user()->hasRole(['admin', 'superadmin'])) {
-            abort(403, 'Unauthorized');
-        }
-
+    
         return view('pages.borrowing.lab.management.history');
     }
 
@@ -25,7 +22,7 @@ class LabBorrowingHistoryController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        $query = LabBorrowingHistory::with(['borrowing.lab', 'borrowing.user', 'user']);
+        $query = LabBorrowingHistory::with(['borrowing', 'borrowing.user', 'user']);
 
         // Filter berdasarkan status
         if ($request->has('status') && !empty($request->status)) {
@@ -41,16 +38,9 @@ class LabBorrowingHistoryController extends Controller
             $query->whereDate('created_at', '<=', $request->end_date);
         }
 
-        // Filter berdasarkan lab
-        if ($request->has('lab_id') && !empty($request->lab_id)) {
-            $query->whereHas('borrowing', function($q) use ($request) {
-                $q->where('lab_id', $request->lab_id);
-            });
-        }
-
         // Filter berdasarkan user
         if ($request->has('user_id') && !empty($request->user_id)) {
-            $query->whereHas('borrowing', function($q) use ($request) {
+            $query->whereHas('borrowing', function ($q) use ($request) {
                 $q->where('user_id', $request->user_id);
             });
         }

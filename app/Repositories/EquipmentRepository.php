@@ -51,7 +51,7 @@ class EquipmentRepository
 
         // Apply ordering
         $orderColumn = $request->order[0]['column'] ?? 2;
-        $orderDir = $request->order[0]['dir'] ?? 'asc';
+        $orderDir = $request->order[0]['dir'] ?? 'desc';
         $columns = [
             0 => 'id', // For select checkbox column
             1 => 'id', // For select checkbox column
@@ -66,6 +66,9 @@ class EquipmentRepository
         if (isset($columns[$orderColumn])) {
             $query->orderBy($columns[$orderColumn], $orderDir);
         }
+
+        // Always order by updated_at as secondary sort
+        $query->orderBy('updated_at', 'desc');
 
         return $query->paginate($request->length);
     }
